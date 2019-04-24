@@ -10,9 +10,9 @@
 - Debug from device. 
 - Auto start/stop `gdbserver`from device.
 
-![Build and Run NDK Hello Word screen](img/Image10.png)
+![Build and Run NDK Hello Word screen](docs/img/Image10.png)
 
-![Build and Debug NDK Hello Word screen](img/Image14.png)
+![Build and Debug NDK Hello Word screen](docs/img/Image14.png)
 
 
 

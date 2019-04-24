@@ -8,6 +8,13 @@
 - Build Release (NDK toolchain)
 - Run from device
 - Debug from device. 
-- Auto run/stop`gdbserver`from device.
+- Auto run/stop `gdbserver`from device.
 
 ![Build and Run NDK Hello Word screen](img/Image10.png)
+
+
+
+## License
+
+_MIT_
+

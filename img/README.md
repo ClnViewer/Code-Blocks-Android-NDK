@@ -66,83 +66,9 @@
 
 Исходные **файлы управления сборкой** в директории `NDK` проекта:
 
-**Application.mk**
-
-    APP_ABI := all
-    APP_STL := c++_static
-    APP_PLATFORM := android-22
-    APP_BUILD_SCRIPT := Android.mk
-
-**Android.mk** - собственно и является мейк-файлом уникальным для каждого `NDK` проекта (приложения):
-
-    LOCAL_PATH := $(call my-dir)
-    include $(CLEAR_VARS)
-    LOCAL_MODULE    := hello_world
-    LOCAL_SRC_FILES := ./main.c
-    LOCAL_C_INCLUDES := ./
-    include $(BUILD_EXECUTABLE)
-
-**Makefile** - непосредственно запускается `C::B`:
-
-    PLATFORM := armeabi-v7a
-    NDKROOT  := C:\__BuildSource\__LIB__\android-ndk-r20-beta2
-    PROJECT  := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-    BUILDTAG := $(filter-out $@,$(MAKECMDGOALS))
-    BUILDOPT := 
-    
-    include Application.mk
-    include $(APP_BUILD_SCRIPT)
-    
-    ifneq ($(APP_ABI),all)
-    	PLATFORM = $(APP_ABI)
-    endif
-    
-    ifeq ($(BUILDTAG),Debug)
-    	BUILDOPT = NDK_DEBUG=1
-    else
-    	BUILDOPT = -j 4
-    endif
-    
-    all: allndk
-    Debug: allndk adbsetup adbdebug buildscript
-    Release: allndk adbsetup adbexec buildscript
-    cleanDebug: clean
-    cleanRelease: clean
-    cleanall: clean
-    
-    allndk:
-    	@echo '==== Build $(BUILDTAG) -> $(APP_ABI) platform -> active device: [ $(PLATFORM) ] ===='
-    	@Cmd.exe /C $(NDKROOT)\ndk-build.cmd NDK_APPLICATION_MK=$(PROJECT)Application.mk NDK_PROJECT_PATH=$(PROJECT) $(BUILDOPT)
-    
-    clean:
-    	@echo '==== Clean ===='
-    	@Cmd.exe /C $(NDKROOT)\ndk-build.cmd NDK_APPLICATION_MK=$(PROJECT)Application.mk NDK_PROJECT_PATH=$(PROJECT) clean
-    	@Cmd.exe /C adb.exe shell rm -f /data/local/tmp/$(LOCAL_MODULE)
-    
-    adbsetup:
-    	@echo '==== ADB SETUP: [ $(PLATFORM) ] ===='
-    	@Cmd.exe /C adb.exe push $(PROJECT)libs\$(PLATFORM)\$(LOCAL_MODULE) /data/local/tmp/$(LOCAL_MODULE)
-    	@Cmd.exe /C adb.exe shell /system/bin/chmod 0777 /data/local/tmp/$(LOCAL_MODULE)
-    
-    adbexec:
-    	@echo '==== ADB RUN: [ $(PLATFORM) ] ===='
-    	@Cmd.exe /C adb.exe shell /data/local/tmp/$(LOCAL_MODULE)
-    
-    adbdebug:
-    	@echo '==== GDB Debug: [ $(PLATFORM) ] ===='
-    	@Cmd.exe /C adb.exe push $(PROJECT)libs\$(PLATFORM)\gdb.setup /data/local/tmp/gdb.setup
-    	@Cmd.exe /C adb.exe push $(PROJECT)libs\$(PLATFORM)\gdbserver /data/local/tmp/gdbserver
-    	@Cmd.exe /C adb.exe shell /system/bin/chmod 0777 /data/local/tmp/gdbserver
-    
-    buildscript:
-    ifeq (,$(wildcard ./RunRemote.cmd))
-    	@echo "adb.exe shell /data/local/tmp/$(LOCAL_MODULE)" >RunRemote.cmd
-    endif
-    ifeq (,$(wildcard ./DebugRemote.cmd))
-    	@echo "adb.exe shell /data/local/tmp/gdbserver :9999 /data/local/tmp/$(LOCAL_MODULE)" >DebugRemote.cmd
-    endif
-    
-    .PHONY: clean all
+[**Application.mk**](CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Application.mk) - устновки параметров сборки.  
+[**Android.mk**](CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Android.mk) - собственно и является мейк-файлом уникальным для каждого `NDK` проекта (приложения).  
+[**Makefile**](CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Makefile) - непосредственно запускается `C::B`:
 
 Файлы `Application.mk` и `Makefile` являются универсальными для всех проектов собираемых с помощью `NDK` и не требуют правок.
 
@@ -201,6 +127,8 @@
 ![Image3](Image3.png)
 
 ![Image4](Image4.png)
+
+![Image5](Image5.png)
 
 
 ### Вид настроек компилятора в `C::B`:

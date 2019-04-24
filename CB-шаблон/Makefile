@@ -1,0 +1,57 @@
+
+PLATFORM := armeabi-v7a
+NDKROOT  := C:\__BuildSource\__LIB__\android-ndk-r20-beta2
+PROJECT  := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+BUILDTAG := $(filter-out $@,$(MAKECMDGOALS))
+BUILDOPT := 
+
+include Application.mk
+include $(APP_BUILD_SCRIPT)
+
+ifneq ($(APP_ABI),all)
+	PLATFORM = $(APP_ABI)
+endif
+
+ifeq ($(BUILDTAG),Debug)
+	BUILDOPT = NDK_DEBUG=1
+else
+	BUILDOPT = -j 4
+endif
+
+all: allndk
+Debug: allndk adbsetup adbdebug buildscript
+Release: allndk adbsetup adbexec buildscript
+cleanDebug: clean
+cleanRelease: clean
+cleanall: clean
+
+allndk:
+	@echo '==== Build $(BUILDTAG) -> $(APP_ABI) platform -> active device: [ $(PLATFORM) ] ===='
+	@Cmd.exe /C $(NDKROOT)\ndk-build.cmd NDK_APPLICATION_MK=$(PROJECT)Application.mk NDK_PROJECT_PATH=$(PROJECT) $(BUILDOPT)
+
+clean:
+	@echo '==== Clean ===='
+	@Cmd.exe /C $(NDKROOT)\ndk-build.cmd NDK_APPLICATION_MK=$(PROJECT)Application.mk NDK_PROJECT_PATH=$(PROJECT) clean
+	@Cmd.exe /C adb.exe shell rm -f /data/local/tmp/$(LOCAL_MODULE)
+
+adbsetup:
+	@echo '==== ADB SETUP: [ $(PLATFORM) ] ===='
+	@Cmd.exe /C adb.exe push $(PROJECT)libs\$(PLATFORM)\$(LOCAL_MODULE) /data/local/tmp/$(LOCAL_MODULE)
+	@Cmd.exe /C adb.exe shell /system/bin/chmod 0777 /data/local/tmp/$(LOCAL_MODULE)
+
+adbexec:
+	@echo '==== ADB RUN: [ $(PLATFORM) ] ===='
+	@Cmd.exe /C adb.exe shell /data/local/tmp/$(LOCAL_MODULE)
+
+adbdebug:
+	@echo '==== GDB Debug: [ $(PLATFORM) ] ===='
+	@Cmd.exe /C adb.exe push $(PROJECT)libs\$(PLATFORM)\gdb.setup /data/local/tmp/gdb.setup
+	@Cmd.exe /C adb.exe push $(PROJECT)libs\$(PLATFORM)\gdbserver /data/local/tmp/gdbserver
+	@Cmd.exe /C adb.exe shell /system/bin/chmod 0777 /data/local/tmp/gdbserver
+
+buildscript:
+	@echo "adb.exe shell /data/local/tmp/$(LOCAL_MODULE)" >RunRemote.cmd
+	@echo "adb.exe shell /data/local/tmp/gdbserver :9999 /data/local/tmp/$(LOCAL_MODULE)" >DebugRemote.cmd
+
+.PHONY: clean all
+

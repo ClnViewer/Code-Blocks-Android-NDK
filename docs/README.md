@@ -56,38 +56,59 @@
     │   Application.mk
     │   main.c
     │   Makefile
+    │   
     ├───libs
     │   ├───arm64-v8a
+    │   │       gdb.setup
+    │   │       gdbserver
     │   │       hello_world
     │   ├───armeabi-v7a
+    │   │       gdb.setup
+    │   │       gdbserver
     │   │       hello_world
     │   ├───x86
+    │   │       gdb.setup
+    │   │       gdbserver
     │   │       hello_world
     │   └───x86_64
+    │           gdb.setup
+    │           gdbserver
     │           hello_world
+    │           
     └───obj
         └───local
             ├───arm64-v8a
             │   │   hello_world
-            │   └───objs
+            │   ├───objs
+            │   │   └───hello_world
+            │   └───objs-debug
             │       └───hello_world
             │               main.o
             │               main.o.d
             ├───armeabi-v7a
             │   │   hello_world
-            │   └───objs
+            │   │   
+            │   ├───objs
+            │   │   └───hello_world
+            │   └───objs-debug
             │       └───hello_world
             │               main.o
             │               main.o.d
             ├───x86
             │   │   hello_world
-            │   └───objs
+            │   │   
+            │   ├───objs
+            │   │   └───hello_world
+            │   └───objs-debug
             │       └───hello_world
             │               main.o
             │               main.o.d
             └───x86_64
                 │   hello_world
-                └───objs
+                │   
+                ├───objs
+                │   └───hello_world
+                └───objs-debug
                     └───hello_world
                             main.o
                             main.o.d

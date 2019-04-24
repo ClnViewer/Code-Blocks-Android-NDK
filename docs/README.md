@@ -177,3 +177,6 @@
 - Можно использовать android `C/C++` библиотеки, такие как liblog, чтобы иметь возможность иметь вывод в logcat из аппликации.
 
 Полный код `NDK C::B template` находиться в директории [CB-шаблон](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD)
+
+Обсуждение на [ru.stackoverflow.com](https://ru.stackoverflow.com/questions/972826/codeblocks-android-ndk/972896#972896)
+

@@ -1,5 +1,5 @@
 # Code-Blocks-Android-NDK
-`Code::Blocks` + `Android NDK` project template [HOWTO](docs/README.md)
+`Code::Blocks` + `Android NDK` project template [HOWTO](https://clnviewer.github.io/Code-Blocks-Android-NDK/)
 
 ### Support:
 

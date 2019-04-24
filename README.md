@@ -1,5 +1,5 @@
 # Code-Blocks-Android-NDK
-Code::Blocks + Android NDK [project template](img/README.md)
+`Code::Blocks` + `Android NDK` project template [HOWTO](docs/README.md)
 
 ### Support:
 
@@ -8,7 +8,5 @@ Code::Blocks + Android NDK [project template](img/README.md)
 - Build Release (NDK toolchain)
 - Run from device
 - Debug from device
-
-https://ru.stackoverflow.com/questions/972826/codeblocks-android-ndk/972896#972896
 
 ![Build and Run NDK Hello Word screen](img/Image10.png)

@@ -50,8 +50,12 @@ adbdebug:
 	@Cmd.exe /C adb.exe shell /system/bin/chmod 0777 /data/local/tmp/gdbserver
 
 buildscript:
+ifeq (,$(wildcard ./RunRemote.cmd))
 	@echo "adb.exe shell /data/local/tmp/$(LOCAL_MODULE)" >RunRemote.cmd
+endif
+ifeq (,$(wildcard ./DebugRemote.cmd))
 	@echo "adb.exe shell /data/local/tmp/gdbserver :9999 /data/local/tmp/$(LOCAL_MODULE)" >DebugRemote.cmd
+endif
 
 .PHONY: clean all
 

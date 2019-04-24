@@ -13,13 +13,13 @@ ifneq ($(APP_ABI),all)
 endif
 
 ifeq ($(BUILDTAG),Debug)
-	BUILDOPT = NDK_DEBUG=1
+	BUILDOPT = V=1 NDK_DEBUG=1
 else
 	BUILDOPT = -j 4
 endif
 
 all: allndk
-Debug: allndk adbsetup adbdebug buildscript
+Debug: allndk adbsetup adbdebug buildscript rundebug
 Release: allndk adbsetup adbexec buildscript
 cleanDebug: clean
 cleanRelease: clean
@@ -49,12 +49,17 @@ adbdebug:
 	@Cmd.exe /C adb.exe push $(PROJECT)libs\$(PLATFORM)\gdbserver /data/local/tmp/gdbserver
 	@Cmd.exe /C adb.exe shell /system/bin/chmod 0777 /data/local/tmp/gdbserver
 
+rundebug:
+	@Cmd.exe /C DebugRemote.cmd
+
 buildscript:
 ifeq (,$(wildcard ./RunRemote.cmd))
 	@echo "adb.exe shell /data/local/tmp/$(LOCAL_MODULE)" >RunRemote.cmd
 endif
 ifeq (,$(wildcard ./DebugRemote.cmd))
-	@echo "adb.exe shell /data/local/tmp/gdbserver :9999 /data/local/tmp/$(LOCAL_MODULE)" >DebugRemote.cmd
+	@echo "adb.exe forward tcp:59999 tcp:59999" >DebugRemote.cmd
+	@echo "start \"$(PLATFORM) GDB server\" /MIN adb.exe shell /data/local/tmp/gdbserver :59999 /data/local/tmp/$(LOCAL_MODULE)" >>DebugRemote.cmd
+	@echo "exit" >>DebugRemote.cmd
 endif
 
 .PHONY: clean all

@@ -3,6 +3,7 @@ Code::Blocks + Android NDK [project template](img/README.md)
 
 ### Support:
 
+- No root device!
 - Build Debug (NDK toolchain)
 - Build Release (NDK toolchain)
 - Run from device

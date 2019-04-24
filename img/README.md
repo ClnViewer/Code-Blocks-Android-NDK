@@ -19,7 +19,7 @@
 
 В секции `<Extensions><debugger><remote_debugging>` находятся настройки дистанционной отладки, реализованной с помощью `GDB`:
 
-- `options ip_address="127.0.0.1" ip_port="9999" extended_remote="1"`, если есть необходимость изменить номер порта, то это так-же необходимо сделать в `Makefile`.
+- `options ip_address="127.0.0.1" ip_port="59999" extended_remote="1"`, если есть необходимость изменить номер порта, то это так-же необходимо сделать в `Makefile`.
 
 [**AndroidNdkTemplate.cbp**](../CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/AndroidNdkTemplate.cbp) - файл проекта `C::B`.  
 

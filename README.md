@@ -12,6 +12,9 @@
 
 ![Build and Run NDK Hello Word screen](img/Image10.png)
 
+![Build and Debug NDK Hello Word screen](img/Image14.png)
+
+
 
 
 ## License

@@ -180,3 +180,7 @@
 
 Обсуждение на [ru.stackoverflow.com](https://ru.stackoverflow.com/questions/972826/codeblocks-android-ndk/972896#972896)
 
+
+## License
+
+_MIT_

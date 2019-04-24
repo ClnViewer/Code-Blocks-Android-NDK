@@ -21,13 +21,15 @@
 
 - `options ip_address="127.0.0.1" ip_port="9999" extended_remote="1"`, если есть необходимость изменить номер порта, то это так-же необходимо сделать в `Makefile`.
 
-[**AndroidNdkTemplate.cbp**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/AndroidNdkTemplate.cbp) - файл проекта `C::B`.  
+[**AndroidNdkTemplate.cbp**](../CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/AndroidNdkTemplate.cbp) - файл проекта `C::B`.  
 
-Исходные **файлы управления сборкой** в директории `NDK` проекта:
+### Исходные файлы управления сборкой в директории `NDK` проекта:
 
-[**Application.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Application.mk) - устновки параметров сборки.  
-[**Android.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Android.mk) - собственно и является мейк-файлом уникальным для каждого `NDK` проекта (приложения).  
-[**Makefile**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Makefile) - непосредственно запускается `C::B`:
+----------
+
+[**Application.mk**](../CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Application.mk) - устновки параметров сборки.  
+[**Android.mk**](../CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Android.mk) - собственно и является мейк-файлом уникальным для каждого `NDK` проекта (приложения).  
+[**Makefile**](../CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Makefile) - непосредственно запускается `C::B`:
 
 Файлы `Application.mk` и `Makefile` являются универсальными для всех проектов собираемых с помощью `NDK` и не требуют правок.
 

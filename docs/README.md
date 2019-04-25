@@ -43,7 +43,7 @@
 
 ----------
 
-[**Application.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Application.mk) - устновки параметров сборки.  
+[**Application.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Application.mk) - установки параметров сборки.  
 [**Android.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Android.mk) - собственно и является мейк-файлом уникальным для каждого `NDK` проекта (приложения).  
 [**Makefile**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Makefile) - непосредственно запускается `C::B`:
 

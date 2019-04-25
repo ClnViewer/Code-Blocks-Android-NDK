@@ -17,6 +17,7 @@
 - Run from device
 - Debug from device. 
 - Auto start/stop `gdbserver`from device.
+- No wrappers from `Gradle/Java` code required, works directly with the device.
 
 ![Build and Run NDK Hello Word screen](docs/img/Image10.png)
 

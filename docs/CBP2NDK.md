@@ -1,4 +1,7 @@
 
 # утилита экспорта cpb2ndk
 
-Android NDK` к `C::B -> Android NDK`
+Цель утилиты `cbp2ndk`- перенос настроек и установок сделанных в `C::B` в формат `Android NDK`
+
+
+Android NDK

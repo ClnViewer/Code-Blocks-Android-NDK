@@ -1,5 +1,5 @@
 
-# cbp2ndk - 
+# cbp2ndk  
 ## Code::Blocks to Android NDK configuration converter
 
 

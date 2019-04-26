@@ -68,6 +68,9 @@ int main(int argc, const char *argv[])
 
         /// begin XML configuration parse
 
+        if (!cnf.ismkf)
+            write_makef(&cnf);
+
         if (!cnf.isapp)
             write_appmk(&cnf);
 
@@ -140,7 +143,7 @@ int main(int argc, const char *argv[])
                         pcnf->v[elabels::LBL_CSRC].push_back(opt);
                     }
                     else
-                        std::cout << " ! NOT support file extension: " << opt.c_str() << std::endl;
+                        std::cout << " ! Skip: not support file extension: " << opt.c_str() << std::endl;
                 }
         );
 		for (auto root :
@@ -313,7 +316,7 @@ int main(int argc, const char *argv[])
                 {
                     for (int i = elabels::LBL_CEXT; i < _END_FOR_ARRAY; i++)
                     {
-                        if (if_section(i, &cnf))
+                        if (if_section(&cnf, i))
                         {
                             if (!write_label(fpo, i))
                                 break;

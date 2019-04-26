@@ -23,26 +23,5 @@
     SOFTWARE.
  */
 
-#ifndef __CBCONF_LOCAL_H__
-#define __CBCONF_LOCAL_H__
-
-class CbConf
-{
-    private:
-        void path(std::string const &);
-
-    public:
-        std::vector<std::string> v[_END_FOR_ARRAY];
-        std::map<std::string, int32_t> m[2];
-        std::string fname[5];
-        std::string prjname;
-        std::string tag;
-        bool isapp;
-        bool isand;
-        bool ismkf;
-
-    CbConf(std::string const &, std::string const &);
-    ~CbConf();
-};
-
-#endif
+MKFDATA RCDATA "../../CB-Template/Makefile"
+APPDATA RCDATA "../../CB-Template/Application.mk"

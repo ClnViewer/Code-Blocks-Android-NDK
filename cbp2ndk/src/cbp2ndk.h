@@ -108,12 +108,15 @@ enum elabels
 #include "cbp2ndk-CbConf.h"
 
 const char * get_label(int32_t);
+PBYTE        get_resource(LPCSTR, size_t*);
+
 void dump_CbConf(CbConf*);
-bool if_section(int32_t, CbConf*);
+bool if_section(CbConf*, int32_t);
 bool write_label(FILE*, int32_t);
 bool write_section(FILE*, CbConf*, int32_t);
 void write_appmk(CbConf*);
 void write_andmk(CbConf*);
+void write_makef(CbConf*);
 
 void parse_section(
         CbConf*,

@@ -30,7 +30,7 @@
 using namespace std;
 
 CbConf::CbConf(std::string const & _tag, std::string const & _path)
-    : tag(_tag), isapp(false), isand(false)
+    : tag(_tag), isapp(false), isand(false), ismkf(false)
     {
         path(_path.c_str());
     }
@@ -51,6 +51,7 @@ void CbConf::path(std::string const & _path)
         fname[1] = "Android.mk";
         fname[2] = "Android.mk.tmp";
         fname[3] = "Application.mk";
+        fname[4] = "Makefile";
     }
     else
     {
@@ -58,7 +59,13 @@ void CbConf::path(std::string const & _path)
         fname[1] = fpath + __SEPARATOR_PATH "Android.mk";
         fname[2] = fpath + __SEPARATOR_PATH "Android.mk.tmp";
         fname[3] = fpath + __SEPARATOR_PATH "Application.mk";
+        fname[4] = fpath + __SEPARATOR_PATH "Makefile";
     }
+
+    if (::_access(fname[4].c_str(), F_OK) < 0)
+        ismkf = false;
+    else
+        ismkf = true;
 
     if (::_access(fname[3].c_str(), F_OK) < 0)
         isapp = false;

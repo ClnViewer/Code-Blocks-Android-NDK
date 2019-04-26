@@ -1,2 +1,4 @@
 
-# утилита экспорта `cpb2ndk` `Android NDK` к `C::B -> Android NDK`
+# утилита экспорта cpb2ndk
+
+AndroidAndroidAndroidAndroid NDK` к `C::B -> Android NDK`

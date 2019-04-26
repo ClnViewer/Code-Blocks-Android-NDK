@@ -47,7 +47,9 @@
 #include <iostream>
 #include "extern/tixml2ex.h"
 #include "../version.h"
+#include <windows.h>
 #include <stdio.h>
+#include <io.h>
 
 #define __CSZ(a)  static_cast<size_t>(sizeof(a)-1)
 #define __NELE(a) (sizeof(a) / sizeof(a[0]))
@@ -103,19 +105,15 @@ enum elabels
 };
 
 #define _END_FOR_ARRAY elabels::LBL_NAME
+#include "cbp2ndk-CbConf.h"
 
-typedef struct l_CbConf
-{
-    std::vector<std::string> v[elabels::LBL_END];
-    std::map<std::string, int32_t> m[2];
-    std::string fname[3];
-    std::string prjname;
-} CbConf;
-
+const char * get_label(int32_t);
 void dump_CbConf(CbConf*);
-bool if_section(int, CbConf*);
-bool write_label(FILE*, const char**, int);
-bool write_section(FILE*, CbConf*, const char**, int);
+bool if_section(int32_t, CbConf*);
+bool write_label(FILE*, int32_t);
+bool write_section(FILE*, CbConf*, int32_t);
+void write_appmk(CbConf*);
+void write_andmk(CbConf*);
 
 void parse_section(
         CbConf*,

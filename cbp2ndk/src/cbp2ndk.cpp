@@ -26,29 +26,9 @@
  */
 
 #include "cbp2ndk.h"
-#include <io.h>
 
 using namespace std;
 
-static const char aconf_default_begin[] =
-    "LOCAL_PATH := $(call my-dir)\n" \
-    "include $(CLEAR_VARS)\n";
-
-static const char aconf_default_end[] =
-    "LOCAL_SRC_FILES :=\n" \
-    "include $(BUILD_EXECUTABLE)\n";
-
-static const char *labels[] =
-{
-  static_cast<const char*>("LOCAL_CPP_EXTENSION :="),
-  static_cast<const char*>("LOCAL_SRC_FILES :="),
-  static_cast<const char*>("LOCAL_CFLAGS :="),
-  static_cast<const char*>("LOCAL_LDFLAGS :="),
-  static_cast<const char*>("LOCAL_LDLIBS :="),
-  static_cast<const char*>("LOCAL_C_INCLUDES :="),
-  static_cast<const char*>("LOCAL_MODULE :="),
-  static_cast<const char*>("\n")
-};
 
 inline bool string_end(std::string const & val, std::string const & ending)
 {
@@ -62,32 +42,6 @@ inline bool string_begin(std::string const & val, std::string const & start)
     return std::equal(start.begin(), start.end(), val.begin());
 }
 
-bool set_path(CbConf *pcnf, const char *argv)
-{
-    pcnf->fname[0] = std::string(argv);
-
-    if (::_access(pcnf->fname[0].c_str(), F_OK) < 0)
-        throw tinyxml2::XmlException("open cbp file: " + pcnf->fname[0]);
-
-    size_t pos = pcnf->fname[0].find_last_of("/\\");
-
-    if (pos == std::string::npos)
-    {
-        pcnf->fname[1] = "Android.mk";
-        pcnf->fname[2] = "Android.mk.tmp";
-    }
-    else
-    {
-        std::string fpath =  pcnf->fname[0].substr(0,pos);
-        pcnf->fname[1] = fpath + __SEPARATOR_PATH "Android.mk";
-        pcnf->fname[2] = fpath + __SEPARATOR_PATH "Android.mk.tmp";
-    }
-
-    if (::_access(pcnf->fname[1].c_str(), F_OK) < 0)
-        return false;
-    return true;
-}
-
 int main(int argc, const char *argv[])
 {
     if (argc < 3)
@@ -95,7 +49,7 @@ int main(int argc, const char *argv[])
         const char *exebin = strrchr(argv[0], '\\');
         exebin = ((exebin) ? (exebin + 1) : argv[0]);
 
-        std::cout << std::endl << "   Code::Blocks to Android NDK configuration converter v." << FULLVERSION_STRING << " (" << DATE << "." << MONTH << "." << YEAR << ")" << std::endl;
+        std::cout << std::endl << "   Code::Blocks to Android NDK configuration converter v." << CBP_FULLVERSION_STRING << " (" << CBP_DATE << "." << CBP_MONTH << "." << CBP_YEAR << ")" << std::endl;
         std::cout << "   C::B to NDK HOWTO: https://clnviewer.github.io/Code-Blocks-Android-NDK/" << std::endl;
         std::cout << "   Android.mk  HOWTO: https://developer.android.com/ndk/guides/android_mk" << std::endl << std::endl;
         std::cout << "   Using: " << exebin << " <Debug|Release> <path\\project.cbp>" << std::endl;
@@ -104,9 +58,7 @@ int main(int argc, const char *argv[])
 
 	try
 	{
-	    CbConf cnf{};
-	    bool iscnf = set_path(&cnf, argv[2]);
-	    std::string tag(argv[1]);
+	    CbConf cnf(argv[1], argv[2]);
 
 		auto doc = tinyxml2::load_xmlfile(cnf.fname[0]);
 
@@ -116,7 +68,10 @@ int main(int argc, const char *argv[])
 
         /// begin XML configuration parse
 
-        if (!iscnf)
+        if (!cnf.isapp)
+            write_appmk(&cnf);
+
+        if (!cnf.isand)
         {
             parse_section(
                 &cnf,
@@ -132,22 +87,7 @@ int main(int argc, const char *argv[])
             if (cnf.prjname.empty())
                 throw tinyxml2::XmlException("no project name in cbp configuration");
 
-            FILE __AUTO(__autofile) *fp = NULL;
-
-            if (!(fp = fopen(cnf.fname[1].c_str(), "wt")))
-                throw tinyxml2::XmlException("open file Android.mk to write");
-
-#           if defined(_DEBUG)
-            std::cout << " * Create (default): " << cnf.fname[1].c_str() << std::endl;
-#           endif
-
-            std::string nmodule(labels[elabels::LBL_NAME]);
-            nmodule.append(" " + cnf.prjname + "\n");
-
-            fwrite(aconf_default_begin, 1, __CSZ(aconf_default_begin), fp);
-            fwrite(nmodule.data(), 1, nmodule.length(), fp);
-            fwrite(aconf_default_end, 1, __CSZ(aconf_default_end), fp);
-            fclose(fp); fp = NULL;
+            write_andmk(&cnf);
         }
 
         parse_section(
@@ -164,7 +104,7 @@ int main(int argc, const char *argv[])
                     )
                     {
                         size_t sp;
-                        if ((sp = opt.find("/")) != std::wstring::npos)
+                        if ((sp = opt.find_last_of("/\\")) != std::wstring::npos)
                         {
                             std::string incpath = opt.substr(0, sp);
                             if (!incpath.empty())
@@ -185,7 +125,7 @@ int main(int argc, const char *argv[])
                     )
                     {
                         size_t sp;
-                        if ((sp = opt.find(".")) != std::wstring::npos)
+                        if ((sp = opt.find_last_of(".")) != std::wstring::npos)
                         {
                             std::string ext = opt.substr(sp, opt.length() - sp);
                             if (!ext.empty())
@@ -212,7 +152,7 @@ int main(int argc, const char *argv[])
             std::string taged = attribute_value(root, "title");
             if (
                 (taged.empty()) ||
-                (!string_end(tag, taged))
+                (!string_end(cnf.tag, taged))
                )
                 continue;
 
@@ -352,7 +292,7 @@ int main(int argc, const char *argv[])
             for (int n = elabels::LBL_CEXT; n < _END_FOR_ARRAY; n++)
             {
                 size_t sp;
-                std::string needle(labels[n]);
+                std::string needle(get_label(n));
 
                 if ((sp = needle.find(" ")) != std::wstring::npos)
                 {
@@ -375,9 +315,9 @@ int main(int argc, const char *argv[])
                     {
                         if (if_section(i, &cnf))
                         {
-                            if (!write_label(fpo, labels, i))
+                            if (!write_label(fpo, i))
                                 break;
-                            if (!write_section(fpo, &cnf, labels, i))
+                            if (!write_section(fpo, &cnf, i))
                                 break;
                         }
                     }

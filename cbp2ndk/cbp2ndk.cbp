@@ -58,16 +58,21 @@
 			<Add option="-Wextra" />
 			<Add option="-pedantic" />
 		</Compiler>
-		<Unit filename="version.h" />
-		<Unit filename="src/cbp2ndk.cpp" />
-		<Unit filename="src/cbp2ndk.h" />
+		<Unit filename="src/cbp2ndk-CbConf.cpp" />
+		<Unit filename="src/cbp2ndk-CbConf.h" />
+		<Unit filename="src/cbp2ndk-dump.cpp" />
 		<Unit filename="src/cbp2ndk-parse.cpp" />
 		<Unit filename="src/cbp2ndk-write.cpp" />
-		<Unit filename="src/cbp2ndk-dump.cpp" />
+		<Unit filename="src/cbp2ndk.cpp" />
+		<Unit filename="src/cbp2ndk.h" />
+		<Unit filename="src/cbp2ndk.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="src/extern/tinyxml2.cpp" />
 		<Unit filename="src/extern/tinyxml2.h" />
 		<Unit filename="src/extern/tixml2cx.h" />
 		<Unit filename="src/extern/tixml2ex.h" />
+		<Unit filename="version.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
@@ -77,7 +82,7 @@
 				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
 				<Settings autoincrement="1" date_declarations="1" use_define="1" update_manifest="1" do_auto_increment="1" ask_to_increment="0" language="C" svn="0" svn_directory="" header_path="version.h" />
 				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
-				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
+				<Code header_guard="VERSION_LOCAL_H" namespace="AutoVersion" prefix="CBP" />
 			</AutoVersioning>
 		</Extensions>
 	</Project>

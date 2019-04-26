@@ -54,15 +54,15 @@
 
 - `options ip_address="127.0.0.1" ip_port="59999" extended_remote="0"`, если есть необходимость изменить номер порта, то это так-же необходимо сделать в `Makefile`. Если опция `extended_remote` будет отличной от нуля, окно дистанционно запущенного `gdbserver` не закроется автоматически после отладки.
 
-[**AndroidNdkTemplate.cbp**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/AndroidNdkTemplate.cbp) - файл проекта `C::B`.  
+[**AndroidNdkTemplate.cbp**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/AndroidNdkTemplate.cbp) - файл проекта `C::B`.  
 
 ### Исходные файлы управления сборкой в директории `NDK` проекта:
 
 ----------
 
-[**Application.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Application.mk) - установки параметров сборки.  
-[**Android.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Android.mk) - собственно и является мейк-файлом уникальным для каждого `NDK` проекта (приложения).  
-[**Makefile**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/Makefile) - непосредственно запускается `C::B`:
+[**Application.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Application.mk) - установки параметров сборки.  
+[**Android.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Android.mk) - собственно и является мейк-файлом уникальным для каждого `NDK` проекта (приложения).  
+[**Makefile**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Makefile) - непосредственно запускается `C::B`:
 
 Файлы `Application.mk` и `Makefile` являются универсальными для всех проектов собираемых с помощью `NDK` и не требуют правок.
 
@@ -214,7 +214,7 @@
 
 - Можно использовать android `C/C++` библиотеки, такие как liblog, чтобы иметь возможность иметь вывод в logcat из аппликации.
 
-Полный код `NDK C::B template` находиться в директории [CB-шаблон](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD)
+Полный код `NDK C::B template` находиться в директории [C::B шаблон](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/)
 
 Скачать утилиту конвертации настроек [cbp2ndk v.0.0.2.14/win32](https://github.com/ClnViewer/Code-Blocks-Android-NDK/raw/master/cbp2ndk/dist/cbp2ndk.zip) 
 

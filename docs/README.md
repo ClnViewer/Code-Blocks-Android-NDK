@@ -56,7 +56,7 @@
 
 [**AndroidNdkTemplate.cbp**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/AndroidNdkTemplate.cbp) - файл проекта `C::B`.  
 
-### Исходные файлы управления сборкой в директории `NDK` проекта:
+### Исходные файлы управления сборкой в директории NDK проекта:
 
 ----------
 
@@ -131,7 +131,7 @@
                             main.o.d
 
 
-### Вид настроек проекта из GUI `C::B`:
+### Вид настроек проекта из GUI C::B:
 
 ----------
 
@@ -161,7 +161,7 @@
 - `file obj/local/armeabi-v7a/<имя приложения>`  - имя отлаживаемого приложения.  
 
 
-### Вид настроек компилятора в `C::B`:
+### Вид настроек компилятора в C::B:
 
 ----------
 
@@ -172,7 +172,7 @@
 ![Image8](img/Image8.png)
 
 
-### Дополнительное меню отладки `NDK` приложения:
+### Дополнительное меню отладки NDK приложения:
 
 ----------
 
@@ -188,7 +188,7 @@
 
 Данная схема запуска отладки поддерживает и не рутированные устройства.
 
-### Глобальные настройки дебагера для `NDK` выглядят так:
+### Глобальные настройки дебагера для NDK выглядят так:
 
 ----------
 
@@ -202,7 +202,7 @@
 ![Image14](img/Image14.png)
 
 
-### Результат сборки приложения толчейном `NDK`:
+### Результат сборки приложения толчейном NDK:
 
 ----------
 
@@ -216,7 +216,7 @@
 
 Полный код `NDK C::B template` находиться в директории [C::B шаблон](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/)
 
-Скачать утилиту конвертации настроек [cbp2ndk v.0.0.2.14/win32](https://github.com/ClnViewer/Code-Blocks-Android-NDK/raw/master/cbp2ndk/dist/cbp2ndk.zip) 
+Скачать утилиту конвертации настроек [cbp2ndk v.0.0.15.83/win32](https://github.com/ClnViewer/Code-Blocks-Android-NDK/raw/master/cbp2ndk/dist/cbp2ndk.zip) 
 
 
 Обсуждение на [ru.stackoverflow.com](https://ru.stackoverflow.com/questions/972826/codeblocks-android-ndk/972896#972896)

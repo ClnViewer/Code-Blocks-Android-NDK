@@ -55,7 +55,7 @@
 ### Параметры командной строки:
 
 
-        Using: cbp2ndk.exe <Debug|Release> <path\project.cbp>
+        Using: cbp2ndk.exe <Debug|Release|OtherTag> <path\project.cbp>
 
 
 ### Источники:

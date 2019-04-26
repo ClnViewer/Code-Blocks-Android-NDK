@@ -25,4 +25,6 @@
 
 
 
-Android NDK
+Более подробно о формате и возможностях файла [`Android.mk](https://developer.android.com/ndk/guides/android_mk)
+
+

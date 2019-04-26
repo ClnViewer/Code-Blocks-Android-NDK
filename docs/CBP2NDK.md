@@ -64,6 +64,6 @@
 
 Перейти в директорию [cbp2ndk](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/cbp2ndk)
 
-Более подробно о формате и возможностях файла [`Android.mk`](https://developer.android.com/ndk/guides/android_mk)
+Более подробно о формате и возможностях файла [Android.mk](https://developer.android.com/ndk/guides/android_mk)
 
 

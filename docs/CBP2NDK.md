@@ -22,9 +22,12 @@
 
 - автоматическое вычисление подключаемых библиотек и включение их в переменную `LOCAL_LDLIBS`
 
+### Параметры командной строки:
 
 
+        Using: cbp2ndk.exe <Debug|Release> <path\project.cbp>
 
-Более подробно о формате и возможностях файла [`Android.mk](https://developer.android.com/ndk/guides/android_mk)
+
+Более подробно о формате и возможностях файла [`Android.mk`](https://developer.android.com/ndk/guides/android_mk)
 
 

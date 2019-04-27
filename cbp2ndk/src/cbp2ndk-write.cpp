@@ -88,8 +88,8 @@ bool if_section(CbConf *pcnf, int32_t idx)
 
 bool write_label(FILE *fp, int32_t idx)
 {
-    size_t sz = strlen(labels[idx]);
-    if (fwrite(labels[idx], 1, sz, fp) != sz)
+    size_t sz = strlen(get_label(idx));
+    if (fwrite(get_label(idx), 1, sz, fp) != sz)
         return false;
 
     return true;
@@ -107,8 +107,8 @@ bool write_section(FILE *fp, CbConf *pcnf, int32_t idx)
             return false;
     }
 
-    size_t sz = strlen(labels[elabels::LBL_END]);
-    if (fwrite(labels[elabels::LBL_END], 1, sz, fp) != sz)
+    size_t sz = strlen(get_label(elabels::LBL_END));
+    if (fwrite(get_label(elabels::LBL_END), 1, sz, fp) != sz)
         return false;
 
     return true;
@@ -159,7 +159,7 @@ void write_andmk(CbConf *pcnf)
         std::cout << " * Create (default): " << pcnf->fname[1].c_str() << std::endl;
 #   endif
 
-    std::string nmodule(labels[elabels::LBL_NAME]);
+    std::string nmodule(get_label(elabels::LBL_NAME));
     nmodule.append(" " + pcnf->prjname + "\n");
 
     fwrite(android_default_begin, 1, __CSZ(android_default_begin), fp);

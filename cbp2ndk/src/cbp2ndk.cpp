@@ -127,17 +127,19 @@ int main(int argc, const char *argv[])
                         (string_end(opt, ".cpp"))
                     )
                     {
-                        size_t sp;
-                        if ((sp = opt.find_last_of(".")) != std::wstring::npos)
+                        if (!string_end(opt, ".c"))
                         {
-                            std::string ext = opt.substr(sp, opt.length() - sp);
-                            if (!ext.empty())
+                            size_t sp;
+                            if ((sp = opt.find_last_of(".")) != std::wstring::npos)
                             {
-                                if (pcnf->m[0].find(ext) != pcnf->m[0].end())
-                                    pcnf->m[0].insert(std::make_pair(ext, 1));
-                                else
-                                    pcnf->m[0][ext] += 1;
-
+                                std::string ext = opt.substr(sp, opt.length() - sp);
+                                if (!ext.empty())
+                                {
+                                    if (pcnf->m[0].find(ext) != pcnf->m[0].end())
+                                        pcnf->m[0].insert(std::make_pair(ext, 1));
+                                    else
+                                        pcnf->m[0][ext] += 1;
+                                }
                             }
                         }
                         pcnf->v[elabels::LBL_CSRC].push_back(opt);
@@ -340,11 +342,16 @@ int main(int argc, const char *argv[])
         if (rename(cnf.fname[2].c_str(), cnf.fname[1].c_str()))
             throw tinyxml2::XmlException("move new file Android.mk");
 
-        std::cout << " * Convertible configuration done." << std::endl;
+        std::cout << " * C::B -> Android NDK - convertible configuration done." << std::endl;
 	}
-	catch (tinyxml2::XmlException & e)
+	catch (tinyxml2::XmlException & _ex)
 	{
-		std::cout << " ! Error : " << e.what() << std::endl;
+		std::cout << " ! Error : " << _ex.what() << std::endl;
+		return 125;
+	}
+	catch (std::exception & _ex)
+	{
+		std::cout << " ! Exception : " << _ex.what() << std::endl;
 		return 126;
 	}
 

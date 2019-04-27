@@ -173,4 +173,5 @@ void write_appmk(CbConf *pcnf)
 void write_makef(CbConf *pcnf)
 {
     write_data(pcnf, static_cast<LPCSTR>("MKFDATA"), 4);
+    std::cout << " ? Warning : New Makefile - you need to edit the NDKROOT variable pointing to the path to the Android NDK on your system." << std::endl;
 }

@@ -11,7 +11,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="Debug cbp2ndk.cbp" />
 				<Compiler>
 					<Add option="-fvisibility=hidden" />
 					<Add option="-fvisibility-inlines-hidden" />
@@ -68,6 +67,7 @@
 		<Unit filename="src/cbp2ndk.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="src/extern/argh.h" />
 		<Unit filename="src/extern/tinyxml2.cpp" />
 		<Unit filename="src/extern/tinyxml2.h" />
 		<Unit filename="src/extern/tixml2cx.h" />

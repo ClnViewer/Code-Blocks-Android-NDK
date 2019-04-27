@@ -2,12 +2,17 @@
 PLATFORM := armeabi-v7a
 NDKROOT  := C:\__BuildSource\__LIB__\android-ndk-r20-beta2
 PROJECT  := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-CONFCBP  := $(shell find $(SOURCEDIR) -name '*.cbp')
 BUILDTAG := $(filter-out $@,$(MAKECMDGOALS))
 BUILDOPT := 
 
 include Application.mk
 include $(APP_BUILD_SCRIPT)
+
+ifeq ($(OS),Windows_NT)
+	CONFCBP  := $(shell dir *.cbp | findstr .cbp)
+else
+	CONFCBP  := $(shell find $("./") -name '*.cbp')
+endif
 
 ifneq ($(APP_ABI),all)
 	PLATFORM = $(APP_ABI)
@@ -16,7 +21,7 @@ endif
 ifeq ($(BUILDTAG),Debug)
 	BUILDOPT = V=1 NDK_DEBUG=1
 else
-	BUILDOPT = -j 4
+	BUILDOPT = ANALIZE=1 -j 4
 endif
 
 all: allndk
@@ -28,7 +33,7 @@ cleanall: clean
 
 allndk:
 	@echo '==== Build $(BUILDTAG) -> $(APP_ABI) platform -> active device: [ $(PLATFORM) ] ===='
-	@cbp2ndk $(BUILDTAG) $(CONFCBP)
+	@cbp2ndk.exe $(BUILDTAG) $(CONFCBP)
 	@Cmd.exe /C $(NDKROOT)\ndk-build.cmd NDK_APPLICATION_MK=$(PROJECT)Application.mk NDK_PROJECT_PATH=$(PROJECT) $(BUILDOPT)
 
 clean:

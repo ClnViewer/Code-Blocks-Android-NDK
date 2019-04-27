@@ -22,9 +22,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="hdk-main.h" />
+		<Unit filename="ndk-main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="ndk-test.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

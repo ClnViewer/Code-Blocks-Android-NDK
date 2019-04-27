@@ -57,7 +57,19 @@
 ### Параметры командной строки:
 
 
-        Using: cbp2ndk.exe <Debug|Release|OtherTag> <path\project.cbp>
+        Options:
+           -a, --auto      find .cbp project file from current directory
+           -c, --cbp       path to .cbp project file
+           -d, --dump      dump current configuration
+           -t, --tag       building tag: Debug|Release|OtherTag
+           -q, --quiet     quiet all messages
+           -v, --verbose   verbose output to console
+
+        Using:
+           cbp2ndk.exe <BuildTag> <path\project.cbp>
+           cbp2ndk.exe -t <BuildTag> -c <path\project.cbp> -v
+           cbp2ndk.exe -a
+        
 
 ### Добавление меню в C::B
 

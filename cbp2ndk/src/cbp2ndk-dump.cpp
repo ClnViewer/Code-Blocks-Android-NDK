@@ -61,10 +61,13 @@ void dump_CbConf(CbConf *pcnf)
             std::cout << " + Input files [" << i << "] : "<< pcnf->fname[i] << std::endl;
         }
         std::cout << " + Project name [title] : "<< pcnf->prjname << std::endl;
+        std::cout << " i File present [Makefile]       : "<< pcnf->ismkf << std::endl;
+        std::cout << " i File present [Application.mk] : "<< pcnf->isapp << std::endl;
+        std::cout << " i File present [Android.mk]     : "<< pcnf->isand << std::endl;
 	}
-	catch (std::exception & e)
+	catch (std::exception & _ex)
 	{
-		std::cout << " ! Dump : " << e.what() << std::endl;
+		std::cout << " ! Dump : " << _ex.what() << std::endl;
 	}
 
     return;

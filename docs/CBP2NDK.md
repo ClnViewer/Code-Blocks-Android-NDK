@@ -77,7 +77,7 @@
 
 ### Источники:
 
-Скачать [cbp2ndk v.0.0.2.16/win32](https://github.com/ClnViewer/Code-Blocks-Android-NDK/raw/master/cbp2ndk/dist/cbp2ndk.zip) 
+Скачать [cbp2ndk v.0.0.40.214/win32](https://github.com/ClnViewer/Code-Blocks-Android-NDK/raw/master/cbp2ndk/dist/cbp2ndk.zip) 
 
 Перейти в директорию [cbp2ndk](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/cbp2ndk)
 

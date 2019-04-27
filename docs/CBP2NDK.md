@@ -57,6 +57,9 @@
 
         Using: cbp2ndk.exe <Debug|Release|OtherTag> <path\project.cbp>
 
+### Добавление меню в C::B
+
+![cbp2ndk menu in CodeBlocks](img/Image15.png)
 
 ### Источники:
 

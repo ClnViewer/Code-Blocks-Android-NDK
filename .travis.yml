@@ -7,7 +7,7 @@ compiler:
     - clang
 script:
   - dir
-  - cd /cbp2ndk/dist
+  - cd cbp2ndk/dist
   - mkdir -p test
   - cd test
   - cmake -G"MinGW Makefiles" .. -DCMAKE_BUILD_TYPE=Release

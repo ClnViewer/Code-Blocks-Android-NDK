@@ -2,6 +2,7 @@
 [![C::B project template](https://img.shields.io/badge/CodeBlocks-template-brightgreen.svg?style=flat)](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD)
 [![License MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat)](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/LICENSE)
 
+[![Build Travis](https://travis-ci.com/ClnViewer/Code-Blocks-Android-NDK.svg)](https://travis-ci.com/ClnViewer/Code-Blocks-Android-NDK)
 [![Repo size](https://img.shields.io/github/repo-size/ClnViewer/Code-Blocks-Android-NDK.svg?style=flat)](https://github.com/ClnViewer/Code-Blocks-Android-NDK/)
 [![Code size](https://img.shields.io/github/languages/code-size/ClnViewer/Code-Blocks-Android-NDK.svg?style=flat)](https://github.com/ClnViewer/Code-Blocks-Android-NDK/)
 

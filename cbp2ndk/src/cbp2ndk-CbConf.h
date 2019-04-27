@@ -29,7 +29,9 @@
 class CbConf
 {
     private:
-        void path(std::string const &);
+        void path();
+        void cmdl(const char**, int);
+        bool findcbp();
 
     public:
         std::vector<std::string> v[_END_FOR_ARRAY];
@@ -37,11 +39,17 @@ class CbConf
         std::string fname[5];
         std::string prjname;
         std::string tag;
+        /// configuration
+        bool isarg;
+        bool isverb;
+        bool isquiet;
+        bool isdump;
+        /// files found
         bool isapp;
         bool isand;
         bool ismkf;
 
-    CbConf(std::string const &, std::string const &);
+    CbConf(const char**, int);
     ~CbConf();
 };
 

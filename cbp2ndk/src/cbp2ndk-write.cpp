@@ -100,7 +100,8 @@ bool write_section(FILE *fp, CbConf *pcnf, int32_t idx)
     for (auto &val : pcnf->v[idx])
     {
 #       if defined(_DEBUG)
-        std::cout << "\t+ : " << val << std::endl;
+        if (pcnf->isverb)
+            std::cout << "\t+ : " << val << std::endl;
 #       endif
         if (fwrite(val.data(), 1, val.length(), fp) != val.length())
             return false;
@@ -121,7 +122,8 @@ static void write_data(CbConf *pcnf, LPCSTR sid, int32_t fid)
         throw tinyxml2::XmlException("open file to write");
 
 #   if defined(_DEBUG)
-    std::cout << " * Create (default): " << pcnf->fname[fid].c_str() << std::endl;
+    if (pcnf->isverb)
+        std::cout << " * Create (default): " << pcnf->fname[fid].c_str() << std::endl;
 #   endif
 
     do
@@ -153,7 +155,8 @@ void write_andmk(CbConf *pcnf)
         throw tinyxml2::XmlException("open file Android.mk to write");
 
 #   if defined(_DEBUG)
-    std::cout << " * Create (default): " << pcnf->fname[1].c_str() << std::endl;
+    if (pcnf->isverb)
+        std::cout << " * Create (default): " << pcnf->fname[1].c_str() << std::endl;
 #   endif
 
     std::string nmodule(labels[elabels::LBL_NAME]);
@@ -173,5 +176,6 @@ void write_appmk(CbConf *pcnf)
 void write_makef(CbConf *pcnf)
 {
     write_data(pcnf, static_cast<LPCSTR>("MKFDATA"), 4);
-    std::cout << " ? Warning : New Makefile - you need to edit the NDKROOT variable pointing to the path to the Android NDK on your system." << std::endl;
+    if (!pcnf->isquiet)
+        std::cout << " ? Warning : New Makefile - you need to edit the NDKROOT variable pointing to the path to the Android NDK on your system." << std::endl;
 }

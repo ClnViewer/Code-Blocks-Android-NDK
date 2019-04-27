@@ -29,7 +29,6 @@ using namespace std;
 
 void dump_CbConf(CbConf *pcnf)
 {
-#   if defined(_DEBUG)
     try
     {
         for (auto &val : pcnf->v[elabels::LBL_HINC])
@@ -56,7 +55,7 @@ void dump_CbConf(CbConf *pcnf)
         {
             std::cout << " + LBL_CEXT: " << val << std::endl;
         }
-        for (uint32_t i = 0U; i < 3U; i++)
+        for (uint32_t i = 0U; i < 5U; i++)
         {
             std::cout << " + Input files [" << i << "] : "<< pcnf->fname[i] << std::endl;
         }
@@ -64,6 +63,9 @@ void dump_CbConf(CbConf *pcnf)
         std::cout << " i File present [Makefile]       : "<< pcnf->ismkf << std::endl;
         std::cout << " i File present [Application.mk] : "<< pcnf->isapp << std::endl;
         std::cout << " i File present [Android.mk]     : "<< pcnf->isand << std::endl;
+        std::cout << " c Is Dump    : "<< pcnf->isdump << std::endl;
+        std::cout << " c Is Verbose : "<< pcnf->isverb << std::endl;
+        std::cout << " c Is Quiet   : "<< pcnf->isquiet << std::endl;
 	}
 	catch (std::exception & _ex)
 	{
@@ -71,7 +73,4 @@ void dump_CbConf(CbConf *pcnf)
 	}
 
     return;
-#   else
-    (void)pcnf;
-#   endif
 }

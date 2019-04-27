@@ -29,22 +29,11 @@
 
 using namespace std;
 
-
-inline bool string_end(std::string const & val, std::string const & ending)
-{
-    if (ending.size() > val.size()) return false;
-    return std::equal(ending.rbegin(), ending.rend(), val.rbegin());
-}
-
-inline bool string_begin(std::string const & val, std::string const & start)
-{
-    if (start.size() > val.size()) return false;
-    return std::equal(start.begin(), start.end(), val.begin());
-}
-
 int main(int argc, const char *argv[])
 {
-    if (argc < 3)
+    CbConf cnf(argv, argc);
+
+    if (!cnf.isarg)
     {
         const char *exebin = strrchr(argv[0], '\\');
         exebin = ((exebin) ? (exebin + 1) : argv[0]);
@@ -52,19 +41,26 @@ int main(int argc, const char *argv[])
         std::cout << std::endl << "   Code::Blocks to Android NDK configuration converter v." << CBP_FULLVERSION_STRING << " (" << CBP_DATE << "." << CBP_MONTH << "." << CBP_YEAR << ")" << std::endl;
         std::cout << "   C::B to NDK HOWTO: https://clnviewer.github.io/Code-Blocks-Android-NDK/" << std::endl;
         std::cout << "   Android.mk  HOWTO: https://developer.android.com/ndk/guides/android_mk" << std::endl << std::endl;
-        std::cout << "   Using: " << exebin << " <Debug|Release> <path\\project.cbp>" << std::endl;
+        std::cout << "   Options: " << std::endl;
+        std::cout << "\t-a, --auto\tfind .cbp project file from current directory" << std::endl;
+        std::cout << "\t-c, --cbp\tpath to .cbp project file" << std::endl;
+        std::cout << "\t-d, --dump\tdump current configuration" << std::endl;
+        std::cout << "\t-t, --tag\tbuilding tag: Debug|Release|OtherTag" << std::endl;
+        std::cout << "\t-q, --quiet\tquiet all messages" << std::endl;
+        std::cout << "\t-v, --verbose\tverbose output to console" << std::endl << std::endl;
+        std::cout << "   Using: " << std::endl;
+        std::cout << "\t" << exebin << " <BuildTag> <path\\project.cbp>" << std::endl;
+        std::cout << "\t" << exebin << " -t <BuildTag> -c <path\\project.cbp> -v" << std::endl;
+        std::cout << "\t" << exebin << " -a" << std::endl;
         return 127;
     }
 
 	try
 	{
-	    CbConf cnf(argv[1], argv[2]);
-
 		auto doc = tinyxml2::load_xmlfile(cnf.fname[0]);
 
-#       if defined(_DEBUG)
-        std::cout << " * Open (xml):       " << cnf.fname[0].c_str() << std::endl;
-#       endif
+		if (cnf.isverb)
+            std::cout << " * Open (xml):       " << cnf.fname[0].c_str() << std::endl;
 
         /// begin XML configuration parse
 
@@ -145,7 +141,8 @@ int main(int argc, const char *argv[])
                         pcnf->v[elabels::LBL_CSRC].push_back(opt);
                     }
                     else
-                        std::cout << " ! Skip: not support file extension: " << opt.c_str() << std::endl;
+                        if (pcnf->isverb)
+                            std::cout << " ! Skip: not support file extension: " << opt.c_str() << std::endl;
                 }
         );
 		for (auto root :
@@ -258,6 +255,9 @@ int main(int argc, const char *argv[])
             mit1++;
         }
 
+        if (cnf.isdump)
+            dump_CbConf(&cnf);
+
         /// end XML configuration parse
 
         FILE __AUTO(__autofile) *fpi = NULL;
@@ -266,9 +266,8 @@ int main(int argc, const char *argv[])
         if (!(fpi = fopen(cnf.fname[1].c_str(), "rt")))
             throw tinyxml2::XmlException("open file Android.mk to write");
 
-#       if defined(_DEBUG)
-        std::cout << " * Open (r):         " << cnf.fname[1].c_str() << std::endl;
-#       endif
+        if (cnf.isverb)
+            std::cout << " * Open (r):         " << cnf.fname[1].c_str() << std::endl;
 
         ::fseek(fpi, 0L, SEEK_END);
         size_t sz = static_cast<size_t>(::ftell(fpi));
@@ -284,9 +283,8 @@ int main(int argc, const char *argv[])
         if (!(fpo = fopen(cnf.fname[2].c_str(), "wt")))
             throw tinyxml2::XmlException("open file Android.mk.tmp to write");
 
-#       if defined(_DEBUG)
-        std::cout << " * Open (w):         " << cnf.fname[2].c_str() << std::endl;
-#       endif
+        if (cnf.isverb)
+            std::cout << " * Open (w):         " << cnf.fname[2].c_str() << std::endl;
 
         bool iswrite = false;
         char *buf = new char[sz]{};
@@ -342,16 +340,19 @@ int main(int argc, const char *argv[])
         if (rename(cnf.fname[2].c_str(), cnf.fname[1].c_str()))
             throw tinyxml2::XmlException("move new file Android.mk");
 
-        std::cout << " * C::B -> Android NDK - convertible configuration done." << std::endl;
+        if (!cnf.isquiet)
+            std::cout << " * C::B -> Android NDK - convertible configuration done." << std::endl;
 	}
 	catch (tinyxml2::XmlException & _ex)
 	{
-		std::cout << " ! Error : " << _ex.what() << std::endl;
+	    if (!cnf.isquiet)
+            std::cout << " ! Error : " << _ex.what() << std::endl;
 		return 125;
 	}
 	catch (std::exception & _ex)
 	{
-		std::cout << " ! Exception : " << _ex.what() << std::endl;
+	    if (!cnf.isquiet)
+            std::cout << " ! Exception : " << _ex.what() << std::endl;
 		return 126;
 	}
 

@@ -26,21 +26,107 @@
  */
 
 #include "cbp2ndk.h"
+#include "extern/argh.h"
+
+#define __CONF_TAG      "-t", "--tag"
+#define __CONF_CBP      "-c", "--cbp"
+#define __CONF_AUTO     "-a", "--auto"
+#define __CONF_DUMP     "-d", "--dump"
+#define __CONF_QUIET    "-q", "--quiet"
+#define __CONF_VERBOSE  "-v", "--verbose"
+#define __CONF_CBP_EXT  ".cbp"
 
 using namespace std;
 
-CbConf::CbConf(std::string const & _tag, std::string const & _path)
-    : tag(_tag), isapp(false), isand(false), ismkf(false)
+CbConf::CbConf(const char **argv, int argc)
+    : isarg(false), isverb(false), isquiet(false), isdump(false),
+      isapp(false), isand(false), ismkf(false)
     {
-        path(_path.c_str());
+        cmdl(argv, argc);
+        if (isarg)
+            path();
     }
 
 CbConf::~CbConf() {}
 
-void CbConf::path(std::string const & _path)
+bool CbConf::findcbp()
 {
-    fname[0] = std::string(_path);
+    bool ret = false;
+    WIN32_FIND_DATA fd{};
+    HANDLE hf;
 
+    if ((hf = ::FindFirstFileA(
+                static_cast<LPCSTR>("*" __CONF_CBP_EXT),
+                &fd)
+         ) == INVALID_HANDLE_VALUE
+        )
+        return ret;
+
+    do
+    {
+        if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+        {
+            if (string_end(fd.cFileName, __CONF_CBP_EXT))
+            {
+                fname[0].assign(fd.cFileName);
+                ret = true;
+                break;
+            }
+        }
+    }
+    while (::FindNextFile(hf, &fd));
+
+    ::FindClose(hf);
+    return true;
+}
+
+void CbConf::cmdl(const char **argv, int argc)
+{
+    argh::parser lcmd({
+            __CONF_TAG,
+            __CONF_CBP,
+            __CONF_DUMP,
+            __CONF_AUTO,
+            __CONF_QUIET,
+            __CONF_VERBOSE
+            });
+
+    lcmd.parse(argc, argv);
+
+    bool isauto = (lcmd[{ __CONF_AUTO }]);
+    bool istag  = !(!(lcmd({ __CONF_TAG }) >> tag));
+    bool iscnf  = !(!(lcmd({ __CONF_CBP }) >> fname[0]));
+    isdump      = (lcmd[{ __CONF_DUMP }]);
+    isquiet     = (lcmd[{ __CONF_QUIET }]);
+    isverb      = ((isquiet) ? false : (lcmd[{ __CONF_VERBOSE }]));
+
+    if (isauto)
+        if ((iscnf = findcbp()))
+            if (tag.empty())
+            {
+                istag = true;
+                tag = "Release";
+            }
+
+    if ((istag) && (iscnf))
+        isarg = true;
+    else if (((!istag) || (!iscnf)) && (lcmd.pos_args().size() >= 3))
+    {
+        if (!istag)
+            tag = lcmd(1).str();
+        if (!iscnf)
+            fname[0] = lcmd(2).str();
+        if (tag.empty())
+            return;
+        if (fname[0].empty())
+            if (!findcbp())
+                return;
+        isarg = true;
+    }
+}
+
+void CbConf::path()
+{
     if (::_access(fname[0].c_str(), F_OK) < 0)
         throw tinyxml2::XmlException("open cbp file: " + fname[0]);
 

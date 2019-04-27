@@ -92,6 +92,22 @@ static inline void __attribute__((always_inline)) __autofile(void *v)
     }
 }
 
+#if defined(__cplusplus)
+
+inline bool string_end(std::string const & val, std::string const & ending)
+{
+    if (ending.size() > val.size()) return false;
+    return std::equal(ending.rbegin(), ending.rend(), val.rbegin());
+}
+
+inline bool string_begin(std::string const & val, std::string const & start)
+{
+    if (start.size() > val.size()) return false;
+    return std::equal(start.begin(), start.end(), val.begin());
+}
+
+#endif
+
 enum elabels
 {
     LBL_CEXT,

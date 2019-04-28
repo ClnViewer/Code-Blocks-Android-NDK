@@ -56,6 +56,9 @@ PBYTE get_resource(LPCSTR sid, size_t *sz)
         HGLOBAL hmem;
         PBYTE data;
 
+        *sz = 0U;
+        sid = nullptr;
+
         if ((hm = GetModuleHandleA(NULL)) == INVALID_HANDLE_VALUE)
             break;
         if (!(hres = FindResourceA(hm, sid, RT_RCDATA)))

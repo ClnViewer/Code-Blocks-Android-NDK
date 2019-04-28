@@ -11,4 +11,12 @@ script:
   - cd test
   - cmake -G"MinGW Makefiles" .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_IGNORE_PATH="C:/Program Files/Git/usr/bin"
   - cmake --build . --config "Debug"
-  - dir
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key: $GH_TOKEN
+  file_glob: true
+  file:
+    - "cbp2ndk/dist/test/cbp2ndk.exe"
+  on:
+    tags: false

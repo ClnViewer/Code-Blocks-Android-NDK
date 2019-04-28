@@ -13,6 +13,8 @@ script:
   - cmake --build . --config "Debug"
   - dir
   - tar -zcf ${TRAVIS_BUILD_DIR}${REPO}-${BUILD_ENV}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz cbp2ndk.exe
+  - dir
+  - zip /?
 before_deploy:
   - dir
   - tar -zcf ${TRAVIS_BUILD_DIR}${REPO}-${BUILD_ENV}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz cbp2ndk.exe

@@ -12,10 +12,10 @@ script:
   - cmake -G"MinGW Makefiles" .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_IGNORE_PATH="C:/Program Files/Git/usr/bin"
   - cmake --build . --config "Debug"
   - dir
-  - tar -zcf ${TRAVIS_BUILD_DIR}${REPO}-${BUILD_ENV}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz cbp2ndk.exd
+  - tar -zcf ${TRAVIS_BUILD_DIR}${REPO}-${BUILD_ENV}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz cbp2ndk.exe
 before_deploy:
   - dir
-  - tar -zcf ${TRAVIS_BUILD_DIR}${REPO}-${BUILD_ENV}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz ${REPO}
+  - tar -zcf ${TRAVIS_BUILD_DIR}${REPO}-${BUILD_ENV}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz cbp2ndk.exe
 deploy:
   provider: releases
   skip_cleanup: true
@@ -23,4 +23,5 @@ deploy:
   file_glob: true
   file: 'cbp2ndk.exe'
   on:
+    all_branches: true
     tags: false

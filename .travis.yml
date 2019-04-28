@@ -12,6 +12,8 @@ script:
   - cmake -G"MinGW Makefiles" .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_IGNORE_PATH="C:/Program Files/Git/usr/bin"
   - cmake --build . --config "Debug"
   - dir
+before_deploy:
+  - dir
 deploy:
   provider: releases
   skip_cleanup: true

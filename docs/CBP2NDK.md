@@ -24,6 +24,8 @@
 
 - автоматическое вычисление расширений компилируемых файлов и включение их в переменную `LOCAL_CPP_EXTENSION`
 
+- автоматическое распределение флагов между переменными `LOCAL_CFLAGS` и `LOCAL_CPPFLAGS` в соответствии с принадлежностью к языку
+
 - составление списка компилируемых файлов проекта и добавление их в переменную `LOCAL_SRC_FILES`
 
 - если файл `Android.mk` отсутствует в каталоге на который указывает путь до проекта `.cbp`, он будет создан автоматически. В случае создания `Android.mk` имя для приложения будет взято из названия проекта.
@@ -42,6 +44,8 @@
 - `LOCAL_SRC_FILES`
 
 - `LOCAL_CFLAGS`
+
+- `LOCAL_CPPFLAGS`
 
 - `LOCAL_LDFLAGS`
 
@@ -64,6 +68,7 @@
            -t, --tag       building tag: Debug|Release|OtherTag
            -q, --quiet     quiet all messages
            -v, --verbose   verbose output to console
+           -n  --nodefault no set default values (libs, include paths)
 
         Using:
            cbp2ndk.exe <BuildTag> <path\project.cbp>

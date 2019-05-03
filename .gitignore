@@ -8,6 +8,7 @@
 *.sh
 /bin
 /obj
+_git-commit.sh
 
 # Prerequisites
 *.d

@@ -9,6 +9,9 @@
 /bin
 /obj
 _git-commit.sh
+_svn-commit.sh
+_svn-update.sh
+_svn-init.sh
 
 # Prerequisites
 *.d

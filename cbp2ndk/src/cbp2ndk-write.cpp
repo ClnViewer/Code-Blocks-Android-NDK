@@ -40,6 +40,7 @@ static const char *labels[] =
   static_cast<const char*>("LOCAL_CPP_EXTENSION :="),
   static_cast<const char*>("LOCAL_SRC_FILES :="),
   static_cast<const char*>("LOCAL_CFLAGS :="),
+  static_cast<const char*>("LOCAL_CPPFLAGS :="),
   static_cast<const char*>("LOCAL_LDFLAGS :="),
   static_cast<const char*>("LOCAL_LDLIBS :="),
   static_cast<const char*>("LOCAL_C_INCLUDES :="),
@@ -47,8 +48,30 @@ static const char *labels[] =
   static_cast<const char*>("\n")
 };
 
+static const LPCSTR resdata[] =
+{
+  static_cast<LPCSTR>("APPDATA"),
+  static_cast<LPCSTR>("MKFDATA")
+};
+
+enum eresdata
+{
+    RES_APPDATA = 0,
+    RES_MKFDATA
+};
+
+enum efname
+{
+    PATH_CBP = 0,
+    PATH_MK,
+    PATH_MKTMP,
+    PATH_APP,
+    PATH_MAKE
+};
+
 PBYTE get_resource(LPCSTR sid, size_t *sz)
 {
+#   if defined(__OS_IS_WIN)
     do
     {
         HMODULE hm;
@@ -57,7 +80,6 @@ PBYTE get_resource(LPCSTR sid, size_t *sz)
         PBYTE data;
 
         *sz = 0U;
-        sid = nullptr;
 
         if ((hm = GetModuleHandleA(NULL)) == INVALID_HANDLE_VALUE)
             break;
@@ -74,7 +96,10 @@ PBYTE get_resource(LPCSTR sid, size_t *sz)
     }
     while (0);
 
-    return NULL;
+    return nullptr;
+#   else
+    throw tinyxml2::XmlException("Non-Windows not implemented build in resource..");
+#   endif
 }
 
 const char * get_label(int32_t idx)
@@ -173,12 +198,12 @@ void write_andmk(CbConf *pcnf)
 
 void write_appmk(CbConf *pcnf)
 {
-    write_data(pcnf, static_cast<LPCSTR>("APPDATA"), 3);
+    write_data(pcnf, resdata[eresdata::RES_APPDATA], efname::PATH_APP);
 }
 
 void write_makef(CbConf *pcnf)
 {
-    write_data(pcnf, static_cast<LPCSTR>("MKFDATA"), 4);
+    write_data(pcnf, resdata[eresdata::RES_MKFDATA], efname::PATH_MAKE);
     if (!pcnf->isquiet)
-        std::cout << " ? Warning : New Makefile - you need to edit the NDKROOT variable pointing to the path to the Android NDK on your system." << std::endl;
+        std::cout << " ? Warning : New Makefile - \n\t     You need to edit the NDKROOT variable, specifying the path to the Android NDK on your system." << std::endl;
 }

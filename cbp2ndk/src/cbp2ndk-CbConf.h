@@ -44,6 +44,7 @@ class CbConf
         bool isverb;
         bool isquiet;
         bool isdump;
+        bool isnodef;
         /// files found
         bool isapp;
         bool isand;

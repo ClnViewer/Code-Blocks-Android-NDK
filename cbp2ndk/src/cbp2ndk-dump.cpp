@@ -39,7 +39,7 @@ void dump_CbConf(CbConf *pcnf)
         {
             std::cout << " + LBL_CSRC: " << val << std::endl;
         }
-        for (auto &val : pcnf->v[elabels::LBL_COMP])
+        for (auto &val : pcnf->v[elabels::LBL_CFLAG])
         {
             std::cout << " + LBL_COMP: " << val << std::endl;
         }

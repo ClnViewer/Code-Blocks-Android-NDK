@@ -48,6 +48,7 @@ int main(int argc, const char *argv[])
         std::cout << "\t-t, --tag\tbuilding tag: Debug|Release|OtherTag" << std::endl;
         std::cout << "\t-q, --quiet\tquiet all messages" << std::endl;
         std::cout << "\t-v, --verbose\tverbose output to console" << std::endl << std::endl;
+        std::cout << "\t-n  --nodefault\tno set default values" << std::endl << std::endl;
         std::cout << "   Using: " << std::endl;
         std::cout << "\t" << exebin << " <BuildTag> <path\\project.cbp>" << std::endl;
         std::cout << "\t" << exebin << " -t <BuildTag> -c <path\\project.cbp> -v" << std::endl;
@@ -96,53 +97,7 @@ int main(int argc, const char *argv[])
             "filename"s,
              [](CbConf *pcnf, std::string & opt)
                 {
-                    if (
-                        (string_end(opt, ".h"))   ||
-                        (string_end(opt, ".hxx")) ||
-                        (string_end(opt, ".hpp"))
-                    )
-                    {
-                        size_t sp;
-                        if ((sp = opt.find_last_of("/\\")) != std::wstring::npos)
-                        {
-                            std::string incpath = opt.substr(0, sp);
-                            if (!incpath.empty())
-                            {
-                                if (pcnf->m[1].find(incpath) != pcnf->m[1].end())
-                                    pcnf->m[1].insert(std::make_pair(incpath, 1));
-                                else
-                                    pcnf->m[1][incpath] += 1;
-
-                            }
-                        }
-                    }
-                    else if (
-                        (string_end(opt, ".c"))   ||
-                        (string_end(opt, ".cc"))  ||
-                        (string_end(opt, ".cxx")) ||
-                        (string_end(opt, ".cpp"))
-                    )
-                    {
-                        if (!string_end(opt, ".c"))
-                        {
-                            size_t sp;
-                            if ((sp = opt.find_last_of(".")) != std::wstring::npos)
-                            {
-                                std::string ext = opt.substr(sp, opt.length() - sp);
-                                if (!ext.empty())
-                                {
-                                    if (pcnf->m[0].find(ext) != pcnf->m[0].end())
-                                        pcnf->m[0].insert(std::make_pair(ext, 1));
-                                    else
-                                        pcnf->m[0][ext] += 1;
-                                }
-                            }
-                        }
-                        pcnf->v[elabels::LBL_CSRC].push_back(opt);
-                    }
-                    else
-                        if (pcnf->isverb)
-                            std::cout << " ! Skip: not support file extension: " << opt.c_str() << std::endl;
+                    parse_srclist(pcnf, opt);
                 }
         );
 		for (auto root :
@@ -165,13 +120,7 @@ int main(int argc, const char *argv[])
                 "option"s,
                 [](CbConf *pcnf, std::string & opt)
                     {
-                        if (string_begin(opt, " -I"))
-                        {
-                            opt.erase(1,2);
-                            pcnf->v[elabels::LBL_HINC].push_back(opt);
-                        }
-                        else
-                            pcnf->v[elabels::LBL_COMP].push_back(opt);
+                        parse_cflag(pcnf, opt);
                     }
             );
             parse_section(
@@ -181,10 +130,7 @@ int main(int argc, const char *argv[])
                 "option"s,
                 [](CbConf *pcnf, std::string & opt)
                     {
-                        if (string_begin(opt, " -l"))
-                            pcnf->v[elabels::LBL_LDLIBS].push_back(opt);
-                        else
-                            pcnf->v[elabels::LBL_LDFLAG].push_back(opt);
+                        parse_ldflag(pcnf, opt);
                     }
             );
         }
@@ -201,13 +147,7 @@ int main(int argc, const char *argv[])
                 "option"s,
                 [](CbConf *pcnf, std::string & opt)
                     {
-                        if (string_begin(opt, " -I"))
-                        {
-                            opt.erase(1,2);
-                            pcnf->v[elabels::LBL_HINC].push_back(opt);
-                        }
-                        else
-                            pcnf->v[elabels::LBL_COMP].push_back(opt);
+                        parse_cflag(pcnf, opt);
                     }
             );
             parse_section(
@@ -217,18 +157,17 @@ int main(int argc, const char *argv[])
                 "option"s,
                 [](CbConf *pcnf, std::string & opt)
                     {
-                        if (string_begin(opt, " -l"))
-                            pcnf->v[elabels::LBL_LDLIBS].push_back(opt);
-                        else
-                            pcnf->v[elabels::LBL_LDFLAG].push_back(opt);
+                        parse_ldflag(pcnf, opt);
                     }
             );
         }
 
         /// append default values
-        cnf.v[elabels::LBL_LDLIBS].push_back(" -llog");
-        cnf.v[elabels::LBL_HINC].push_back(" ./");
-
+        if (!cnf.isnodef)
+        {
+            cnf.v[elabels::LBL_LDLIBS].push_back(" -llog");
+            cnf.v[elabels::LBL_HINC].push_back(" ./");
+        }
 
         /// map to values
         std::map<std::string, int>::iterator mit0 = cnf.m[0].begin();

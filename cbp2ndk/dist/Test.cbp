@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="test" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="android_ndk-build" />
+		<Option check_files="0" />
+		<Build>
+			<Target title="Release">
+				<Option output="RunRemote.cmd" prefix_auto="0" extension_auto="0" />
+				<Option type="1" />
+				<Option compiler="android_ndk-build" />
+				<Compiler>
+					<Add option="-D_DEBUG=1" />
+				</Compiler>
+			</Target>
+			<Target title="Debug">
+				<Option output="RunRemote.cmd" prefix_auto="0" extension_auto="0" />
+				<Option type="1" />
+				<Option compiler="android_ndk-build" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++17" />
+			<Add option="-Wall" />
+			<Add option="-Wno-unknown-pragmas" />
+			<Add option="-fopenmp" />
+			<Add option="-frtti" />
+			<Add option="-Weffc++" />
+			<Add option="-nostdinc++" />
+			<Add option="-fvisibility-ms-compat" />
+			<Add option="-IC:/__BuildSource/__LIB__/android-aosp-header/android-5.1.1_r1/system/core/include" />
+			<Add option="-IC:/__BuildSource/__LIB__/android-aosp-header/android-5.1.1_r1/frameworks/base/include" />
+			<Add option="-IC:/__BuildSource/__LIB__/android-aosp-header/android-5.1.1_r1/frameworks/native/include" />
+			<Add option="-IC:/__BuildSource/__LIB__/android-aosp-header/android-5.1.1_r1/hardware/libhardware/include" />
+			<Add option="-IC:/__BuildSource/__LIB__/android-aosp-header/other/Skia" />
+		</Compiler>
+		<Linker>
+			<Add option="-L./alib" />
+			<Add option="-Wl,--gc-sections" />
+			<Add option="-lutils" />
+			<Add option="-lgui" />
+			<Add option="-lomp" />
+		</Linker>
+		<Unit filename="test-class.cpp" />
+		<Unit filename="test-class.h" />
+		<Unit filename="test-data.cpp" />
+		<Unit filename="test-data.h" />
+		<Unit filename="test.cpp" />
+		<Unit filename="test.h" />
+		<Unit filename="extern/test-h.h" />
+		<Unit filename="extern/test-h.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="extern/lz4/lz4.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger>
+				<search_path add="obj/local/armeabi-v7a" />
+				<search_path add="obj/local/arm64-v8a" />
+				<search_path add="obj/local/x86" />
+				<search_path add="obj/local/x86_64" />
+				<remote_debugging target="Debug">
+					<options conn_type="0" serial_baud="115200" ip_address="127.0.0.1" ip_port="59999" additional_cmds_before="set solib-search-path obj/local/armeabi-v7a&#x0A;file obj/local/armeabi-v7a/test&#x0A;" />
+				</remote_debugging>
+			</debugger>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

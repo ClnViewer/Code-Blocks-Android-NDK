@@ -13,6 +13,7 @@ Code::Blocks to Android NDK [configuration converter](https://github.com/ClnView
         -t, --tag       building tag: Debug|Release|OtherTag
         -q, --quiet     quiet all messages
         -v, --verbose   verbose output to console
+        -n  --nodefault no set default values (libs, include paths)
 
      Using:
         cbp2ndk.exe <BuildTag> <path\project.cbp>

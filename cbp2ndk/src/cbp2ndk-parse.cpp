@@ -27,6 +27,20 @@
 
 using namespace std;
 
+typedef struct _str_const_cppflag_s
+{
+    const char *str;
+    const size_t sz;
+
+} cppflag_s;
+
+static cppflag_s cppflags[] =
+{
+#define _TOTXT(A) { A, __CSZ(A) },
+#include "cbp2ndk-cppflags.h"
+#undef  _TOTXT
+};
+
 void parse_section(
         CbConf *pcnf,
         const tinyxml2::XMLDocument & root,
@@ -73,3 +87,96 @@ void parse_section(
     }
 }
 
+void parse_cflag(CbConf *pcnf, std::string & opt)
+{
+    elabels lb = elabels::LBL_CFLAG;
+
+    do
+    {
+        if (string_begin(opt, " -I"))
+        {
+            opt.erase(1,2);
+            lb = elabels::LBL_HINC;
+            break;
+        }
+        if (opt.find('+') != std::string::npos)
+        {
+            lb = elabels::LBL_CPPFLAG;
+            break;
+        }
+        for (uint32_t i = 0U; i < __NELE(cppflags); i++)
+        {
+            if ((opt.length() - 1) >= cppflags[i].sz)
+                if (!opt.compare(1U, cppflags[i].sz, cppflags[i].str))
+                {
+                    lb = elabels::LBL_CPPFLAG;
+                    break;
+                }
+        }
+    }
+    while (0);
+
+    pcnf->v[lb].push_back(opt);
+}
+
+void parse_ldflag(CbConf *pcnf, std::string & opt)
+{
+    elabels lb;
+
+    if (!opt.compare(0U, 2, " -l"))
+        lb = elabels::LBL_LDLIBS;
+    else
+        lb = elabels::LBL_LDFLAG;
+
+    pcnf->v[lb].push_back(opt);
+}
+
+void parse_srclist(CbConf *pcnf, std::string & opt)
+{
+    if (
+        (string_end(opt, ".h"))   ||
+        (string_end(opt, ".hxx")) ||
+        (string_end(opt, ".hpp"))
+       )
+    {
+        size_t sp;
+        if ((sp = opt.find_last_of("/\\")) != std::wstring::npos)
+        {
+            std::string incpath = opt.substr(0, sp);
+            if (!incpath.empty())
+            {
+                if (pcnf->m[1].find(incpath) != pcnf->m[1].end())
+                    pcnf->m[1].insert(std::make_pair(incpath, 1));
+                else
+                    pcnf->m[1][incpath] += 1;
+            }
+        }
+    }
+    else if (
+        (string_end(opt, ".c"))   ||
+        (string_end(opt, ".cc"))  ||
+        (string_end(opt, ".cxx")) ||
+        (string_end(opt, ".cpp"))
+       )
+    {
+        if (!string_end(opt, ".c"))
+        {
+            size_t sp;
+            if ((sp = opt.find_last_of(".")) != std::wstring::npos)
+            {
+                std::string ext = opt.substr(sp, opt.length() - sp);
+                if (!ext.empty())
+                {
+                    if (pcnf->m[0].find(ext) != pcnf->m[0].end())
+                        pcnf->m[0].insert(std::make_pair(ext, 1));
+                    else
+                        pcnf->m[0][ext] += 1;
+                }
+            }
+        }
+        pcnf->v[elabels::LBL_CSRC].push_back(opt);
+    }
+    else
+        if (pcnf->isverb)
+            std::cout << " ! Skip: not support file extension: " << opt.c_str() << std::endl;
+}

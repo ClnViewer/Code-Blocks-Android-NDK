@@ -35,6 +35,7 @@
      defined(__WINNT) || defined(__WINNT__) || defined(WINNT) || \
      defined(_Windows) || defined(_MSC_VER) || \
      defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__))
+#   define __OS_IS_WIN 1
 #   define __SEPARATOR_PATH "\\"
 #else
 #   define __SEPARATOR_PATH "/"
@@ -112,7 +113,8 @@ enum elabels
 {
     LBL_CEXT,
     LBL_CSRC,
-    LBL_COMP,
+    LBL_CFLAG,
+    LBL_CPPFLAG,
     LBL_LDFLAG,
     LBL_LDLIBS,
     LBL_HINC,
@@ -133,6 +135,18 @@ bool write_section(FILE*, CbConf*, int32_t);
 void write_appmk(CbConf*);
 void write_andmk(CbConf*);
 void write_makef(CbConf*);
+
+void parse_cflag(
+        CbConf*,
+        std::string&);
+
+void parse_ldflag(
+        CbConf*,
+        std::string&);
+
+void parse_srclist(
+        CbConf*,
+        std::string&);
 
 void parse_section(
         CbConf*,

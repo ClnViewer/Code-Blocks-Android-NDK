@@ -28,18 +28,23 @@
 #include "cbp2ndk.h"
 #include "extern/argh.h"
 
-#define __CONF_TAG      "-t", "--tag"
-#define __CONF_CBP      "-c", "--cbp"
-#define __CONF_AUTO     "-a", "--auto"
-#define __CONF_DUMP     "-d", "--dump"
-#define __CONF_QUIET    "-q", "--quiet"
-#define __CONF_VERBOSE  "-v", "--verbose"
+#define __CONF_TAG       "-t", "--tag"
+#define __CONF_CBP       "-c", "--cbp"
+#define __CONF_AUTO      "-a", "--auto"
+#define __CONF_DUMP      "-d", "--dump"
+#define __CONF_QUIET     "-q", "--quiet"
+#define __CONF_VERBOSE   "-v", "--verbose"
+#define __CONF_NODEFAULT "-n", "--nodefault"
 #define __CONF_CBP_EXT  ".cbp"
+
+#if !defined(__OS_IS_WIN)
+#define _access access
+#endif
 
 using namespace std;
 
 CbConf::CbConf(const char **argv, int argc)
-    : isarg(false), isverb(false), isquiet(false), isdump(false),
+    : isarg(false), isverb(false), isquiet(false), isdump(false), isnodef(false),
       isapp(false), isand(false), ismkf(false)
     {
         cmdl(argv, argc);
@@ -51,6 +56,7 @@ CbConf::~CbConf() {}
 
 bool CbConf::findcbp()
 {
+#   if defined(__OS_IS_WIN)
     bool ret = false;
     WIN32_FIND_DATA fd{};
     HANDLE hf;
@@ -78,6 +84,9 @@ bool CbConf::findcbp()
 
     ::FindClose(hf);
     return true;
+#   else
+    throw tinyxml2::XmlException("Non-Windows not implemented auto find file..");
+#   endif
 }
 
 void CbConf::cmdl(const char **argv, int argc)
@@ -88,7 +97,8 @@ void CbConf::cmdl(const char **argv, int argc)
             __CONF_DUMP,
             __CONF_AUTO,
             __CONF_QUIET,
-            __CONF_VERBOSE
+            __CONF_VERBOSE,
+            __CONF_NODEFAULT
             });
 
     lcmd.parse(argc, argv);
@@ -98,6 +108,7 @@ void CbConf::cmdl(const char **argv, int argc)
     bool iscnf  = !(!(lcmd({ __CONF_CBP }) >> fname[0]));
     isdump      = (lcmd[{ __CONF_DUMP }]);
     isquiet     = (lcmd[{ __CONF_QUIET }]);
+    isnodef     = (lcmd[{ __CONF_NODEFAULT }]);
     isverb      = ((isquiet) ? false : (lcmd[{ __CONF_VERBOSE }]));
 
     if (isauto)

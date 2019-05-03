@@ -133,6 +133,16 @@ int main(int argc, const char *argv[])
                         parse_ldflag(pcnf, opt);
                     }
             );
+            parse_section(
+                &cnf,
+                root,
+                "Option"s,
+                "parameters"s,
+                [](CbConf *pcnf, std::string & opt)
+                    {
+                        pcnf->v[elabels::LBL_CMDL].push_back(opt);
+                    }
+            );
         }
 		for (auto root :
              tinyxml2::selection(
@@ -257,12 +267,14 @@ int main(int argc, const char *argv[])
                     {
                         if (if_section(&cnf, i))
                         {
-                            if (!write_label(fpo, i))
+                            if (!write_label(fpo, i, false))
                                 break;
                             if (!write_section(fpo, &cnf, i))
                                 break;
                         }
                     }
+                    if (!if_section(&cnf, elabels::LBL_CMDL))
+                        (void) write_label(fpo, elabels::LBL_CMDL, true);
                     iswrite = true;
                 }
                 continue;

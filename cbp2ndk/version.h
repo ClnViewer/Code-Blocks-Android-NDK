@@ -14,17 +14,17 @@
 	//Standard Version Type
 	#define CBP_MAJOR  0
 	#define CBP_MINOR  0
-	#define CBP_BUILD  21
-	#define CBP_REVISION  105
+	#define CBP_BUILD  5
+	#define CBP_REVISION  24
 	
 	//Miscellaneous Version Types
-	#define CBP_BUILDS_COUNT  43
-	#define CBP_RC_FILEVERSION 0,0,21,105
-	#define CBP_RC_FILEVERSION_STRING "0, 0, 21, 105\0"
-	#define CBP_FULLVERSION_STRING  "0.0.21.105"
+	#define CBP_BUILDS_COUNT  8
+	#define CBP_RC_FILEVERSION 0,0,5,24
+	#define CBP_RC_FILEVERSION_STRING "0, 0, 5, 24\0"
+	#define CBP_FULLVERSION_STRING  "0.0.5.24"
 	
 	//These values are to keep track of your versioning state, don't modify them.
-	#define CBP_BUILD_HISTORY  21
+	#define CBP_BUILD_HISTORY  5
 	
 
 #endif //VERSION_LOCAL_H

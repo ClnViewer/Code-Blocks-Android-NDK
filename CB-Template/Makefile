@@ -18,10 +18,14 @@ ifneq ($(APP_ABI),all)
 	PLATFORM = $(APP_ABI)
 endif
 
+ifneq ($(ANALIZE),)
+	BUILDOPT += NDK_ANALIZE=1
+endif
+
 ifeq ($(BUILDTAG),Debug)
-	BUILDOPT = V=1 NDK_DEBUG=1
+	BUILDOPT += V=1 NDK_DEBUG=1
 else
-	BUILDOPT = ANALIZE=1 -j 4
+	BUILDOPT += -j 4
 endif
 
 all: allndk
@@ -48,7 +52,7 @@ adbsetup:
 
 adbexec:
 	@echo '==== ADB RUN: [ $(PLATFORM) ] ===='
-	@Cmd.exe /C adb.exe shell /data/local/tmp/$(LOCAL_MODULE)
+	@Cmd.exe /C adb.exe shell /data/local/tmp/$(LOCAL_MODULE) $(CBP2NDK_CMDLINE)
 
 adbdebug:
 	@echo '==== GDB Debug: [ $(PLATFORM) ] ===='
@@ -61,11 +65,11 @@ rundebug:
 
 buildscript:
 ifeq (,$(wildcard ./RunRemote.cmd))
-	@echo "adb.exe shell /data/local/tmp/$(LOCAL_MODULE)" >RunRemote.cmd
+	@echo "adb.exe shell /data/local/tmp/$(LOCAL_MODULE) $(CBP2NDK_CMDLINE)" >RunRemote.cmd
 endif
 ifeq (,$(wildcard ./DebugRemote.cmd))
 	@echo "adb.exe forward tcp:59999 tcp:59999" >DebugRemote.cmd
-	@echo "start \"$(PLATFORM) GDB server\" /MIN adb.exe shell /data/local/tmp/gdbserver :59999 /data/local/tmp/$(LOCAL_MODULE)" >>DebugRemote.cmd
+	@echo "start \"$(PLATFORM) GDB server\" /MIN adb.exe shell /data/local/tmp/gdbserver :59999 /data/local/tmp/$(LOCAL_MODULE) $(CBP2NDK_CMDLINE)" >>DebugRemote.cmd
 	@echo "exit" >>DebugRemote.cmd
 endif
 

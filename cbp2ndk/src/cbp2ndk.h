@@ -118,6 +118,7 @@ enum elabels
     LBL_LDFLAG,
     LBL_LDLIBS,
     LBL_HINC,
+    LBL_CMDL,
     LBL_NAME,
     LBL_END
 };
@@ -130,7 +131,7 @@ PBYTE        get_resource(LPCSTR, size_t*);
 
 void dump_CbConf(CbConf*);
 bool if_section(CbConf*, int32_t);
-bool write_label(FILE*, int32_t);
+bool write_label(FILE*, int32_t, bool);
 bool write_section(FILE*, CbConf*, int32_t);
 void write_appmk(CbConf*);
 void write_andmk(CbConf*);

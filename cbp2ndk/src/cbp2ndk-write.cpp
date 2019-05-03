@@ -44,6 +44,7 @@ static const char *labels[] =
   static_cast<const char*>("LOCAL_LDFLAGS :="),
   static_cast<const char*>("LOCAL_LDLIBS :="),
   static_cast<const char*>("LOCAL_C_INCLUDES :="),
+  static_cast<const char*>("CBP2NDK_CMDLINE :="),
   static_cast<const char*>("LOCAL_MODULE :="),
   static_cast<const char*>("\n")
 };
@@ -114,11 +115,14 @@ bool if_section(CbConf *pcnf, int32_t idx)
     return (pcnf->v[idx].size());
 }
 
-bool write_label(FILE *fp, int32_t idx)
+bool write_label(FILE *fp, int32_t idx, bool isnl)
 {
     size_t sz = strlen(get_label(idx));
     if (fwrite(get_label(idx), 1, sz, fp) != sz)
         return false;
+
+    if (isnl)
+        fputc('\n', fp);
 
     return true;
 }

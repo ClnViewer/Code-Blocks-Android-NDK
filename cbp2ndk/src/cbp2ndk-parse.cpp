@@ -180,3 +180,15 @@ void parse_srclist(CbConf *pcnf, std::string & opt)
         if (pcnf->isverb)
             std::cout << " ! Skip: not support file extension: " << opt.c_str() << std::endl;
 }
+
+void parse_prjname(CbConf *pcnf, std::string & opt)
+{
+    static const char rchars[] = "!@#$%^&*()+- ?><'\"";
+
+    for (uint32_t i = 0U; i < __CSZ(rchars); i++)
+    {
+        while (opt.find(rchars[i]) != string::npos)
+            opt.replace(opt.find(rchars[i]), 1, "_");
+    }
+    pcnf->prjname.assign(opt);
+}

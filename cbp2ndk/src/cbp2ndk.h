@@ -149,6 +149,10 @@ void parse_srclist(
         CbConf*,
         std::string&);
 
+void parse_prjname(
+        CbConf*,
+        std::string&);
+
 void parse_section(
         CbConf*,
         const tinyxml2::XMLDocument&,

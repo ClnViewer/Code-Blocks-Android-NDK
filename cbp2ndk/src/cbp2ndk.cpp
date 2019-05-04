@@ -80,7 +80,7 @@ int main(int argc, const char *argv[])
                 "title"s,
                 [](CbConf *pcnf, std::string & opt)
                     {
-                        pcnf->prjname.assign(opt);
+                        parse_prjname(pcnf, opt);
                     }
             );
 

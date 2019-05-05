@@ -123,7 +123,7 @@ void parse_ldflag(CbConf *pcnf, std::string & opt)
 {
     elabels lb;
 
-    if (!opt.compare(0U, 2, " -l"))
+    if (string_begin(opt, " -l"))
         lb = elabels::LBL_LDLIBS;
     else
         lb = elabels::LBL_LDFLAG;

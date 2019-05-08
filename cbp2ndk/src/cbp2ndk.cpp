@@ -176,7 +176,7 @@ int main(int argc, const char *argv[])
         if (!cnf.isnodef)
         {
             cnf.v[elabels::LBL_LDLIBS].push_back(" -llog");
-            cnf.v[elabels::LBL_CFLAG].push_back(" -D__ANDROID_API__=\"$(TARGET_PLATFORM)\"");
+            cnf.v[elabels::LBL_CFLAG].push_back(" -D__ANDROID_API_PLATFORM__=\"$(TARGET_PLATFORM)\"");
             cnf.v[elabels::LBL_HINC].push_back(" ./");
         }
 

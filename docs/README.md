@@ -56,6 +56,15 @@
 
 [**AndroidNdkTemplate.cbp**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/AndroidNdkTemplate.cbp) - файл проекта `C::B`.  
 
+> Если в процессе запуска собранного приложения на устройстве у вас возникают следующие ошибки:
+
+    WARNING: linker: /data/local/tmp/youprog: unused DT entry: type 0x6ffffef5 arg 0x4040
+    WARNING: linker: /data/local/tmp/youprog: unused DT entry: type 0x6ffffffe arg 0x5a34
+    WARNING: linker: /data/local/tmp/youprog: unused DT entry: type 0x6fffffff arg 0x2
+
+> Используйте [android-elf-cleaner](https://github.com/ClnViewer/termux-elf-cleaner/tree/master/dist)
+
+
 ### Исходные файлы управления сборкой в директории NDK проекта:
 
 ----------

@@ -1,3 +1,36 @@
+#
+#    MIT License
+#
+#    Code::Blocks + Android NDK project template
+#    Copyright (c) 2016-2019 PS
+#    HOWTO: https://clnviewer.github.io/Code-Blocks-Android-NDK/
+#
+#    - No root device!
+#    - Build Debug (NDK toolchain)
+#    - Build Release (NDK toolchain)
+#    - Run from device
+#    - Debug from device. 
+#    - Auto start/stop gdbserverfrom device.
+#    - No wrappers from Gradle/Java code required, works directly with the device.  
+#    - Advanced project export to Android.mk file format, possible using utility cbp2ndk. 
+#
+#    Permission is hereby granted, free of charge, to any person obtaining a copy
+#    of this software and associated documentation files (the "Software"), to deal
+#    in the Software without restriction, including without limitation the rights
+#    to use, copy, modify, merge, publish, distribute, sub license, and/or sell
+#    copies of the Software, and to permit persons to whom the Software is
+#    furnished to do so, subject to the following conditions:
+#
+#    The above copyright notice and this permission notice shall be included in all
+#    copies or substantial portions of the Software.
+#
+#    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#    SOFTWARE.
 
 PLATFORM := armeabi-v7a
 NDKROOT  := C:\__BuildSource\__LIB__\android-ndk-r20-beta2

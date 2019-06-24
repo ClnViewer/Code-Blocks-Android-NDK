@@ -46,6 +46,7 @@
 #include <map>
 #include <functional>
 #include <iostream>
+#include <sstream>
 #include "extern/tixml2ex.h"
 #include "../version.h"
 #include <windows.h>
@@ -107,6 +108,12 @@ inline bool string_begin(std::string const & val, std::string const & start)
     return std::equal(start.begin(), start.end(), val.begin());
 }
 
+inline void string_trim(std::string & str)
+{
+    str.erase(0, str.find_first_not_of(' '));
+    str.erase(str.find_last_not_of(' ')+1);
+}
+
 #endif
 
 enum elabels
@@ -133,9 +140,11 @@ void dump_CbConf(CbConf*);
 bool if_section(CbConf*, int32_t);
 bool write_label(FILE*, int32_t, bool);
 bool write_section(FILE*, CbConf*, int32_t);
+void write_appmk_custom(CbConf*);
 void write_appmk(CbConf*);
 void write_andmk(CbConf*);
 void write_makef(CbConf*);
+void write_makefcb(CbConf*);
 
 void parse_cflag(
         CbConf*,

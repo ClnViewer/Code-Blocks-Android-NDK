@@ -13,9 +13,11 @@
 				<Option compiler="gcc" />
 				<Option parameters="-t Debug -c bin\Debug\Test.cbp " />
 				<Compiler>
+					<Add option="-std=c++17" />
+					<Add option="-m32" />
+					<Add option="-g" />
 					<Add option="-fvisibility=hidden" />
 					<Add option="-fvisibility-inlines-hidden" />
-					<Add option="-g" />
 					<Add option="-D_DEBUG=1" />
 				</Compiler>
 				<Linker>
@@ -37,16 +39,18 @@
 				<Option parameters="-t Release -c bin\Release\Test.cbp " />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++17" />
+					<Add option="-m32" />
 					<Add option="-fvisibility=hidden" />
 					<Add option="-fvisibility-inlines-hidden" />
 				</Compiler>
 				<Linker>
+					<Add option="-s" />
 					<Add option="-static-libstdc++" />
 					<Add option="-static-libgcc" />
 					<Add option="-static" />
 					<Add option="-m32" />
 					<Add option="-Wl,-rpath=./" />
-					<Add option="-s" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="upx.exe -9 bin\Release\cbp2ndk.exe" />

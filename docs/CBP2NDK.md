@@ -71,12 +71,16 @@
            -q, --quiet     quiet all messages
            -v, --verbose   verbose output to console
            -n  --nodefault no set default values (libs, include paths)
+               --cbtmpl    install C::B wizard template Makefile file
+               --api       android API number (Application.mk)
+               --abi       android ABI platform (Application.mk)
+               --ndkopt    android NDK options (Application.mk)
 
         Using:
            cbp2ndk.exe <BuildTag> <path\project.cbp>
            cbp2ndk.exe -t <BuildTag> -c <path\project.cbp> -v
+           cbp2ndk.exe -a --api android-28 --abi armeabi-v7a --ndkopt debug
            cbp2ndk.exe -a
-        
 
 ### Добавление меню в C::B
 

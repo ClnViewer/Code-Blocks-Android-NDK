@@ -24,11 +24,12 @@
  */
 #include "../version.h"
 #define _TOSTR(a) #a
-#define __TOSTR(a) _TOSTR(a)  
+#define __TOSTR(a) _TOSTR(a)
 
 
 MKFDATA RCDATA "../../CB-Template/Makefile"
 APPDATA RCDATA "../../CB-Template/Application.mk"
+MKFDATACBTEMPLATE RCDATA "../../CB-Template/templates/wizard/ndk_android/files/Makefile"
 
 LANGUAGE 0x19, 0x01
 1 VERSIONINFO

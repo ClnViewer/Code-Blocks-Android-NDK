@@ -35,7 +35,7 @@ static const char android_default_end[] =
     "LOCAL_SRC_FILES :=\n" \
     "include $(BUILD_EXECUTABLE)\n";
 
-static const char *labels[] =
+static inline const char *labels_andoid_mk[] =
 {
   static_cast<const char*>("LOCAL_CPP_EXTENSION :="),
   static_cast<const char*>("LOCAL_SRC_FILES :="),
@@ -49,16 +49,33 @@ static const char *labels[] =
   static_cast<const char*>("\n")
 };
 
+static inline const char *labels_app_mk[] =
+{
+  static_cast<const char*>("APP_BUILD_SCRIPT := "),
+  static_cast<const char*>("APP_STL := "),
+  static_cast<const char*>("APP_ABI := "),
+  static_cast<const char*>("APP_PLATFORM := "),
+  static_cast<const char*>("APP_OPTIM := ")
+};
+
+static inline const char *data_app_mk[] =
+{
+  static_cast<const char*>("Android.mk"),
+  static_cast<const char*>("c++_static")
+};
+
 static const LPCSTR resdata[] =
 {
   static_cast<LPCSTR>("APPDATA"),
-  static_cast<LPCSTR>("MKFDATA")
+  static_cast<LPCSTR>("MKFDATA"),
+  static_cast<LPCSTR>("MKFDATACBTEMPLATE"),
 };
 
 enum eresdata
 {
     RES_APPDATA = 0,
-    RES_MKFDATA
+    RES_MKFDATA,
+    RES_MKFDATACB
 };
 
 enum efname
@@ -105,9 +122,9 @@ PBYTE get_resource(LPCSTR sid, size_t *sz)
 
 const char * get_label(int32_t idx)
 {
-    if ((idx < 0) || (idx >= static_cast<int32_t>(__NELE(labels))))
-        return labels[(__NELE(labels) - 1)];
-    return labels[idx];
+    if ((idx < 0) || (idx >= static_cast<int32_t>(__NELE(labels_andoid_mk))))
+        return labels_andoid_mk[(__NELE(labels_andoid_mk) - 1)];
+    return labels_andoid_mk[idx];
 }
 
 bool if_section(CbConf *pcnf, int32_t idx)
@@ -200,14 +217,57 @@ void write_andmk(CbConf *pcnf)
     fclose(fp); fp = NULL;
 }
 
-void write_appmk(CbConf *pcnf)
-{
-    write_data(pcnf, resdata[eresdata::RES_APPDATA], efname::PATH_APP);
-}
-
 void write_makef(CbConf *pcnf)
 {
     write_data(pcnf, resdata[eresdata::RES_MKFDATA], efname::PATH_MAKE);
     if (!pcnf->isquiet)
         std::cout << " ? Warning : New Makefile - \n\t     You need to edit the NDKROOT variable, specifying the path to the Android NDK on your system." << std::endl;
+}
+
+void write_makefcb(CbConf *pcnf)
+{
+    write_data(pcnf, resdata[eresdata::RES_MKFDATACB], efname::PATH_MAKE);
+}
+
+void write_appmk(CbConf *pcnf)
+{
+    write_data(pcnf, resdata[eresdata::RES_APPDATA], efname::PATH_APP);
+}
+
+void write_appmk_custom(CbConf *pcnf)
+{
+    if (!pcnf->isabi)
+        return;
+
+    FILE __AUTO(__autofile) *fp = NULL;
+    if (!(fp = fopen(pcnf->fname[efname::PATH_APP].c_str(), "wt")))
+        throw tinyxml2::XmlException("open file to write");
+
+    std::stringstream ss;
+
+    for (uint32_t i = 0U; i < __NELE(labels_app_mk); i++)
+    {
+        ss << labels_app_mk[i];
+
+        switch (i)
+        {
+            case 0:
+            case 1:
+            {
+                ss << data_app_mk[i];
+                break;
+            }
+            case 2:
+            case 3:
+            case 4:
+            {
+                uint32_t idx = (i - 2U);
+                if (!pcnf->abi[idx].empty())
+                    ss << pcnf->abi[idx].c_str();
+                break;
+            }
+        }
+        ss << "\n";
+    }
+    fwrite(ss.str().data(), 1, ss.str().length(), fp);
 }

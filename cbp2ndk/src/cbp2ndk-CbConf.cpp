@@ -28,6 +28,10 @@
 #include "cbp2ndk.h"
 #include "extern/argh.h"
 
+#define __CONF_OPT       "", "--ndkopt"
+#define __CONF_API       "", "--api"
+#define __CONF_ABI       "", "--abi"
+#define __CONF_CBTMPL    "", "--cbtmpl"
 #define __CONF_TAG       "-t", "--tag"
 #define __CONF_CBP       "-c", "--cbp"
 #define __CONF_AUTO      "-a", "--auto"
@@ -45,7 +49,7 @@ using namespace std;
 
 CbConf::CbConf(const char **argv, int argc)
     : isarg(false), isverb(false), isquiet(false), isdump(false), isnodef(false),
-      isapp(false), isand(false), ismkf(false)
+      isabi(false), iscbtmpl(false), isapp(false), isand(false), ismkf(false)
     {
         cmdl(argv, argc);
         if (isarg)
@@ -92,6 +96,9 @@ bool CbConf::findcbp()
 void CbConf::cmdl(const char **argv, int argc)
 {
     argh::parser lcmd({
+            __CONF_API,
+            __CONF_ABI,
+            __CONF_OPT,
             __CONF_TAG,
             __CONF_CBP,
             __CONF_DUMP,
@@ -106,6 +113,10 @@ void CbConf::cmdl(const char **argv, int argc)
     bool isauto = (lcmd[{ __CONF_AUTO }]);
     bool istag  = !(!(lcmd({ __CONF_TAG }) >> tag));
     bool iscnf  = !(!(lcmd({ __CONF_CBP }) >> fname[0]));
+    bool isabi0 = !(!(lcmd({ __CONF_ABI }) >> abi[0]));
+    bool isabi1 = !(!(lcmd({ __CONF_API }) >> abi[1]));
+                      lcmd({ __CONF_OPT }) >> abi[2];
+    iscbtmpl    = (lcmd[{ __CONF_CBTMPL }]);
     isdump      = (lcmd[{ __CONF_DUMP }]);
     isquiet     = (lcmd[{ __CONF_QUIET }]);
     isnodef     = (lcmd[{ __CONF_NODEFAULT }]);
@@ -133,6 +144,11 @@ void CbConf::cmdl(const char **argv, int argc)
             if (!findcbp())
                 return;
         isarg = true;
+    }
+
+    if ((isabi0) && (isabi1))
+    {
+        isabi = ((!abi[0].empty()) && (!abi[1].empty()));
     }
 }
 

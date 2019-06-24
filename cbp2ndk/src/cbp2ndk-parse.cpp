@@ -184,6 +184,7 @@ void parse_srclist(CbConf *pcnf, std::string & opt)
 void parse_prjname(CbConf *pcnf, std::string & opt)
 {
     static const char rchars[] = "!@#$%^&*()+- ?><'\"";
+    string_trim(opt);
 
     for (uint32_t i = 0U; i < __CSZ(rchars); i++)
     {

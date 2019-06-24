@@ -47,11 +47,16 @@ int main(int argc, const char *argv[])
         std::cout << "\t-d, --dump\tdump current configuration" << std::endl;
         std::cout << "\t-t, --tag\tbuilding tag: Debug|Release|OtherTag" << std::endl;
         std::cout << "\t-q, --quiet\tquiet all messages" << std::endl;
-        std::cout << "\t-v, --verbose\tverbose output to console" << std::endl << std::endl;
-        std::cout << "\t-n  --nodefault\tno set default values" << std::endl << std::endl;
+        std::cout << "\t-v, --verbose\tverbose output to console" << std::endl;
+        std::cout << "\t-n  --nodefault\tno set default values" << std::endl;
+        std::cout << "\t    --cbtmpl\tinstall C::B wizard template Makefile file" << std::endl;
+        std::cout << "\t    --api\tandroid API number (Application.mk)" << std::endl;
+        std::cout << "\t    --abi\tandroid ABI platform (Application.mk)" << std::endl;
+        std::cout << "\t    --ndkopt\tandroid NDK options (Application.mk)" << std::endl << std::endl;
         std::cout << "   Using: " << std::endl;
         std::cout << "\t" << exebin << " <BuildTag> <path\\project.cbp>" << std::endl;
         std::cout << "\t" << exebin << " -t <BuildTag> -c <path\\project.cbp> -v" << std::endl;
+        std::cout << "\t" << exebin << " -a --api android-28 --abi armeabi-v7a --ndkopt debug" << std::endl;
         std::cout << "\t" << exebin << " -a" << std::endl;
         return 127;
     }
@@ -65,11 +70,15 @@ int main(int argc, const char *argv[])
 
         /// begin XML configuration parse
 
-        if (!cnf.ismkf)
+        if ((!cnf.ismkf) && (cnf.iscbtmpl))
+            write_makefcb(&cnf);
+        else if (!cnf.ismkf)
             write_makef(&cnf);
 
-        if (!cnf.isapp)
+        if ((!cnf.isapp) && (!cnf.isabi))
             write_appmk(&cnf);
+        else if (cnf.isabi)
+            write_appmk_custom(&cnf);
 
         if (!cnf.isand)
         {

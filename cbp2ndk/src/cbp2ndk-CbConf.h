@@ -39,12 +39,15 @@ class CbConf
         std::string fname[5];
         std::string prjname;
         std::string tag;
+        std::string abi[3];
         /// configuration
         bool isarg;
         bool isverb;
         bool isquiet;
         bool isdump;
         bool isnodef;
+        bool isabi;
+        bool iscbtmpl;
         /// files found
         bool isapp;
         bool isand;

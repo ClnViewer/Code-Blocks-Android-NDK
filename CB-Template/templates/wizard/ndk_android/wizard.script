@@ -1,0 +1,217 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Code::Blocks new project wizard script
+//
+// Project: NDK Android native Project
+// Author:  PS
+// HOWTO:   https://clnviewer.github.io/Code-Blocks-Android-NDK/
+//
+// Description:
+//          Currently the script has been converted to support building with
+//          a makefile but will eventually support building in the IDE as well.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// Global Vars
+NdkPathDefault    <- _T("$(#ndk)");
+AospPathDefault   <- _T("$(#aosp)");
+str_NdkPath       <- _T("");
+str_AospPath      <- _T("");
+str_BinApi        <- _T("");
+str_BinAbi        <- _T("");
+api_level         <- 0;
+abi_level         <- 0;
+
+function BeginWizard()
+{
+    local wiz_type = Wizard.GetWizardType();
+
+    if (wiz_type == wizProject)
+    {
+        local intro_msg = _T("Welcome to the NDK Android native Project Wizard\n\n" +
+                             "This wizard will guide you to create a new NDK project.\n\n" +
+                             "When you 're ready to proceed, please click \"Next\"\n\n" +
+                             "This wizard is created by PS.\n" +
+                             "For details see\nhttps://clnviewer.github.io/Code-Blocks-Android-NDK/\n\n" +
+                             "Require binary files:\n" + 
+                             "https://github.com/ClnViewer/termux-elf-cleaner/\n" +
+                             "https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/cbp2ndk/");
+
+        local hdkpath_descr = _T("Please select the location of Android NDK on your computer.\n" +
+                                 "This is the top-level folder where Android NDK was installed.\n" +
+                                 "Download:\nnhttps://clnviewer.github.io/Code-Blocks-Android-NDK/");
+
+        local aosppath_descr = _T("Please select the location of Android AOSP header on your computer.\n" +
+                                  "This is the top-level folder where Android AOSP was installed.\n" +
+                                  "Download:\nhttps://github.com/ClnViewer/android-platform-headers/");
+
+	local str_NDK_API_level = _T("android-20;" +
+				 "android-21;" +
+				 "android-22;" +
+				 "android-23;" +
+				 "android-24;" +
+				 "android-25;" +
+				 "android-26;" +
+				 "android-27;" +
+				 "android-28;" +
+				 "android-29;" +
+				 "android-30;" +
+				 "android-31;"
+				);
+
+	local str_NDK_ABI_platform = _T("all;" +
+				 "armeabi-v7a;" +
+				 "arm64-v8a;" +
+				 "x86;" +
+				 "x86_64;"
+				);
+
+        Wizard.AddInfoPage(_T("NDK Android native  Intro"), intro_msg);
+        Wizard.AddGenericSelectPathPage(_T("NdkPath"), hdkpath_descr, _T("Require - select Android NDK path location:"), NdkPathDefault);
+        Wizard.AddGenericSelectPathPage(_T("AospPath"), aosppath_descr, _T("Optional - select Android AOSP header path location:"), AospPathDefault);
+	Wizard.AddGenericSingleChoiceListPage(_T("NdkApi"), _T("Please select Android NDK API level"), str_NDK_API_level , api_level);
+	Wizard.AddGenericSingleChoiceListPage(_T("NdkAbi"), _T("Please select Android NDK ABI platform"), str_NDK_ABI_platform, abi_level);
+        Wizard.AddProjectPathPage();
+    }
+    else
+        print(wiz_type);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+function OnLeave_NdkPath(fwd)
+{
+    if (fwd)
+    {
+       str_NdkPath = Wizard.GetTextControlValue(_T("txtFolder"));
+       if (!IO.FileExists(str_NdkPath + _T("/sysroot/usr/include/jni.h")))
+       {
+          ShowError(_T("Invalid NDK path, {NDK directory}/sysroot/usr/include/jni.h NOT found"));
+          return false;
+       }
+    }
+    return true;
+}
+
+function OnLeave_AospPath(fwd)
+{
+    if (fwd)
+    {
+       str_AospPath = Wizard.GetTextControlValue(_T("txtFolder"));
+    }
+    return true;
+}
+
+function OnLeave_NdkApi(fwd)
+{
+    str_BinApi = Wizard.GetListboxStringSelections(_T("GenericChoiceList"));
+    if (str_BinApi.IsEmpty())
+    {
+	ShowWarning(_T("No select Android API!"));
+        return false;
+    }
+    str_BinApi.RemoveLast(1);
+    return true;
+}
+
+function OnLeave_NdkAbi(fwd)
+{
+    str_BinAbi = Wizard.GetListboxStringSelections(_T("GenericChoiceList"));
+    if (str_BinAbi.IsEmpty())
+    {
+	ShowWarning(_T("No select Android ABI!"));
+        return false;
+    }
+    str_BinAbi.RemoveLast(1);
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+function GetFilesDir()
+{
+    local result = _T("ndk_android/files");
+    return result;
+}
+
+// setup the already created project
+function SetupProject(project)
+{
+    project.SetVar(_T("NDK_API"),  str_BinApi, false);
+    project.SetVar(_T("NDK_ABI"),  str_BinAbi, false);
+    project.SetVar(_T("NDK_DIR"),  str_NdkPath, false);
+    project.SetVar(_T("AOSP_DIR"), str_AospPath, false);
+
+    // Project make & prebuild commands
+    local pb_cleanbin = _T("android-elf-cleaner.exe $(PROJECT_DIR)libs/") + str_BinAbi +  _T("/$(TARGET_OUTPUT_BASENAME)");
+    local mk_variable = _T("SC_NDK_API=\"") + str_BinApi + _T("\" SC_NDK_ABI=\"") + str_BinAbi + _T("\" SC_NDK_DIR=\"") + str_NdkPath  + _T("\"");
+    if (!str_AospPath.IsEmpty())
+    {
+	mk_variable += _T(" SC_AOSP_DIR=\"") + str_AospPath + _T("\"");
+    }
+
+    // Project options
+    project.AddIncludeDir(str_NdkPath + _T("/sysroot/usr/include"));
+    if (!str_AospPath.IsEmpty())
+    {
+       project.AddIncludeDir(str_AospPath + _T("/system/core/include"));
+       project.AddIncludeDir(str_AospPath + _T("/frameworks/base/include"));
+       project.AddIncludeDir(str_AospPath + _T("/frameworks/native/include"));
+       project.AddIncludeDir(str_AospPath + _T("/hardware/libhardware/include"));
+    }
+
+    project.AddCompilerOption(_T("-Wall"));
+    project.AddCompilerOption(_T("-Wno-unknown-pragmas"));
+    project.AddCompilerOption(_T("-fexceptions"));
+    project.AddCompilerOption(_T("-D__ANDROID_API_PLATFORM__=\"$(TARGET_PLATFORM)\""));
+
+    //project.AddLinkerOption(_T("-llog"));
+    //project.CallHooks(true);
+
+    // Debugger set (not property works)
+    project.AddToExtensions(_T("debugger1/remote_debugging:target=Debug"));
+    project.AddToExtensions(_T("debugger1/remote_debugging/options:ip_address=127.0.0.1"));
+    project.AddToExtensions(_T("debugger1/remote_debugging/options:ip_port=59999"));
+    project.AddToExtensions(_T("debugger1/remote_debugging/options:extended_remote=1"));
+    project.AddToExtensions(_T("debugger1/remote_debugging/options:additional_cmds_before=\"set solib-search-path obj/local/") + str_BinAbi + _T("&#x0A;file obj/local/") + str_BinAbi + _T("/$(TARGET_OUTPUT_BASENAME)&#x0A;\""));
+    project.AddToExtensions(_T("debugger1/search_path:add=obj/local/") + str_BinAbi);
+
+    // We are using a custom makefile
+    project.SetMakefile(_T("Makefile"));
+    project.SetMakefileCustom(true);
+    project.AddCommandsAfterBuild(pb_cleanbin);
+    WarningsOn(project, Wizard.GetCompilerID());
+
+    // Debug build target
+    local target = project.GetBuildTarget(Wizard.GetDebugName());
+    if (!IsNull(target))
+    {
+        target.SetTargetType(ttNative);
+        target.SetTargetFilenameGenerationPolicy(tgfpPlatformDefault, tgfpNone);
+        target.SetOutputFilename(Wizard.GetDebugOutputDir() + Wizard.GetProjectName());
+        // Make rules
+        target.SetMakeCommandFor(mcClean, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile clean$target ") + mk_variable);
+        target.SetMakeCommandFor(mcDistClean, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile distclean$target ") + mk_variable);
+        target.SetMakeCommandFor(mcBuild, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile $target ") + mk_variable);
+        target.SetMakeCommandFor(mcCompileFile, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile $file ") + mk_variable);
+        target.SetMakeCommandFor(mcAskRebuildNeeded, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -q -f $makefile $target ") + mk_variable);
+        target.SetMakeCommandFor(mcSilentBuild, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile $target ") + mk_variable + _T(" &gt; $(CMD_NULL)"));
+    }
+
+    // Release build target
+    target = project.GetBuildTarget(Wizard.GetReleaseName());
+    if (!IsNull(target))
+    {
+        target.SetTargetType(ttNative);
+        target.SetTargetFilenameGenerationPolicy(tgfpPlatformDefault, tgfpNone);
+        target.SetOutputFilename(Wizard.GetReleaseOutputDir() + Wizard.GetProjectName());
+        // Make rules
+        target.SetMakeCommandFor(mcClean, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile clean$target ") + mk_variable);
+        target.SetMakeCommandFor(mcDistClean, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile distclean$target ") + mk_variable);
+        target.SetMakeCommandFor(mcBuild, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile $target ") + mk_variable);
+        target.SetMakeCommandFor(mcCompileFile, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile $file ") + mk_variable);
+        target.SetMakeCommandFor(mcAskRebuildNeeded, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -q -f $makefile $target ") + mk_variable);
+        target.SetMakeCommandFor(mcSilentBuild, str_NdkPath + _T("/prebuilt/windows/bin/make.exe -f $makefile $target ") + mk_variable + _T(" &gt; $(CMD_NULL)"));
+    }
+    return true;
+}

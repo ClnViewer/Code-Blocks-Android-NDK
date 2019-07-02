@@ -64,3 +64,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+/cbp2ndk/bin/Debug
+/cbp2ndk/bin/Release
+/cbp2ndk/obj/Debug/src
+/cbp2ndk/obj/Release/src

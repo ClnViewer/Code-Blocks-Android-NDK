@@ -4,7 +4,7 @@
 
 ## Binary archive cbp2ndk.exe win32/static build
 
-Code::Blocks to Android NDK [configuration converter](https://github.com/ClnViewer/Code-Blocks-Android-NDK/raw/master/cbp2ndk/dist/cbp2ndk.zip) v.0.0.14.79 (03.07.2019)  
+Code::Blocks to Android NDK [configuration converter](https://clnviewer.github.io/Code-Blocks-Android-NDK/cbp2ndk.zip) v.0.0.14.79 (03.07.2019)  
 
         Options:
            -a, --auto      find .cbp project file from current directory

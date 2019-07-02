@@ -137,14 +137,22 @@ function GetFilesDir()
 // setup the already created project
 function SetupProject(project)
 {
+    local util_path = Wizard.FindTemplateFile(_T("ndk_android"));
+    if (util_path.IsEmpty())
+    {
+	ShowWarning(_T("No binary utilites found, install cbp2ndk32.exe and android-elf-cleaner32.exe!"));
+        return false;
+    }
+
     project.SetVar(_T("NDK_API"),  str_BinApi, false);
     project.SetVar(_T("NDK_ABI"),  str_BinAbi, false);
     project.SetVar(_T("NDK_DIR"),  str_NdkPath, false);
     project.SetVar(_T("AOSP_DIR"), str_AospPath, false);
+    project.SetVar(_T("UTIL_DIR"), util_path + _T("/exec"), false);
 
     // Project make & prebuild commands
-    local pb_cleanbin = _T("android-elf-cleaner.exe $(PROJECT_DIR)libs/") + str_BinAbi +  _T("/$(TARGET_OUTPUT_BASENAME)");
-    local mk_variable = _T("SC_NDK_API=\"") + str_BinApi + _T("\" SC_NDK_ABI=\"") + str_BinAbi + _T("\" SC_NDK_DIR=\"") + str_NdkPath  + _T("\"");
+    local pb_cleanbin = util_path + _T("/exec/android-elf-cleaner32.exe $(PROJECT_DIR)libs/") + str_BinAbi +  _T("/$(TARGET_OUTPUT_BASENAME)");
+    local mk_variable = _T("SC_BIN_PATH=\"") + util_path + _T("\" SC_NDK_API=\"") + str_BinApi + _T("\" SC_NDK_ABI=\"") + str_BinAbi + _T("\" SC_NDK_DIR=\"") + str_NdkPath  + _T("\"");
     if (!str_AospPath.IsEmpty())
     {
 	mk_variable += _T(" SC_AOSP_DIR=\"") + str_AospPath + _T("\"");
@@ -164,7 +172,6 @@ function SetupProject(project)
     project.AddCompilerOption(_T("-Wno-unknown-pragmas"));
     project.AddCompilerOption(_T("-fexceptions"));
     project.AddCompilerOption(_T("-D__ANDROID_API_PLATFORM__=\"$(TARGET_PLATFORM)\""));
-
     //project.AddLinkerOption(_T("-llog"));
     //project.CallHooks(true);
 

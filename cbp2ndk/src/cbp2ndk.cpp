@@ -49,7 +49,7 @@ int main(int argc, const char *argv[])
         std::cout << "\t-q, --quiet\tquiet all messages" << std::endl;
         std::cout << "\t-v, --verbose\tverbose output to console" << std::endl;
         std::cout << "\t-n  --nodefault\tno set default values" << std::endl;
-        std::cout << "\t    --cbtmpl\tinstall C::B wizard template Makefile file" << std::endl;
+        std::cout << "\t    --cbtmpl\tinstall C::B wizard template Makefile" << std::endl;
         std::cout << "\t    --api\tandroid API number (Application.mk)" << std::endl;
         std::cout << "\t    --abi\tandroid ABI platform (Application.mk)" << std::endl;
         std::cout << "\t    --ndkopt\tandroid NDK options (Application.mk)" << std::endl << std::endl;

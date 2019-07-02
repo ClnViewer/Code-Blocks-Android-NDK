@@ -42,6 +42,7 @@ PLATFORM_OPTIM  :=
 
 # Variables local
 
+DIR_UTILS    := $(SC_BIN_PATH)
 DIR_NDKROOT  := $(SC_NDK_DIR)
 DIR_PROJECT  := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 STR_BUILDTAG := $(filter-out $@,$(MAKECMDGOALS))
@@ -76,13 +77,8 @@ cleanRelease: setndk clean
 cleanall: setndk clean
 
 setndk:
-	@echo '==== SET NDK -> $(SC_NDK_API) -> $(SC_NDK_ABI) -> active device: [ $(PLATFORM_ABI) ] ===='
-	@echo "APP_STL := $(PLATFORM_STL)" >Application.mk
-	@echo "APP_ABI := $(SC_NDK_ABI)" >>Application.mk
-	@echo "APP_PLATFORM := $(SC_NDK_API)" >>Application.mk
-	@echo "APP_BUILD_SCRIPT := $(PLATFORM_SCRIPT)" >>Application.mk
-	@echo "APP_OPTIM := $(PLATFORM_OPTIM)" >>Application.mk
-	@cbp2ndk.exe $(STR_BUILDTAG) $(DIR_CONFCBP)
+	@echo '==== SET C::B NDK -> $(SC_NDK_API) -> $(SC_NDK_ABI) -> active device: [ $(PLATFORM_ABI) ] ===='
+	@$(DIR_UTILS)/exec/cbp2ndk32.exe -t $(STR_BUILDTAG) -c $(DIR_CONFCBP) --api $(PLATFORM_API) --abi $(PLATFORM_ABI) --ndkopt $(PLATFORM_OPTIM)
 -include $(PLATFORM_SCRIPT)
 
 buildndk:
@@ -96,7 +92,7 @@ clean:
 
 adbsetup:
 	@echo '==== ADB SETUP: [ $(PLATFORM_ABI) ] ===='
-	Cmd.exe /C android-elf-cleaner.exe $(DIR_PROJECT)libs\$(PLATFORM_ABI)\$(LOCAL_MODULE)
+	Cmd.exe /C $(DIR_UTILS)/exec/android-elf-cleaner32.exe $(DIR_PROJECT)libs\$(PLATFORM_ABI)\$(LOCAL_MODULE)
 	Cmd.exe /C adb.exe push $(DIR_PROJECT)libs\$(PLATFORM_ABI)\$(LOCAL_MODULE) /data/local/tmp/$(LOCAL_MODULE)
 	Cmd.exe /C adb.exe shell /system/bin/chmod 0777 /data/local/tmp/$(LOCAL_MODULE)
 

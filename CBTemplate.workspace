@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Рабочее пространство C::B NDK Template">
+		<Project filename="android-elf-cleaner/android-elf-cleaner.cbp" />
+		<Project filename="cbp2ndk/cbp2ndk.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

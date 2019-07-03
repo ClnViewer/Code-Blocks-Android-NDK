@@ -32,17 +32,33 @@
 
 ```
 
-Перед использованием темплейта, после внесения этиъ изменений необходимо перезапустить `C::B`
+Перед использованием темплейта, после внесения этих изменений необходимо перезапустить `C::B`
+
+### NDK C::B template Wizard
+
+![Image1](img/Wizard1.png)
+
+![Image1](img/Wizard2.png)
+
+![Image1](img/Wizard3.png)
+
+![Image1](img/Wizard4.png)
+
+![Image1](img/Wizard5.png)
+
+![Image1](img/Wizard6.png)
+
+![Image1](img/Wizard7.png)
 
 
 ### Особенности
 
 > __Баг?__: к сожалению я не нашел прямого пути добавления параметров отладчика непосредственно в проект `C::B` с помощью его API.  
 > На текущий момент параметры отладчика заносятся в секции `Extensions/debugger1`, но для работы необходимо чтобы эти параметры были в секции `Extensions/debugger`.  
-> После зоздания проекта необходимо с помощью редактора удалить секцию `Extensions/debugger`, а секцию `Extensions/debugger1` переименовать в `Extensions/debugger`.  
+> После создания проекта необходимо с помощью редактора удалить секцию `Extensions/debugger`, а секцию `Extensions/debugger1` переименовать в `Extensions/debugger`.  
 > Примерное содержимое этой секции приведено ниже.
 
-```
+```xml
 <debugger>
 	/// One actually platform path
 	// <search_path add="obj/local/arm64-v8a" />
@@ -64,7 +80,7 @@
 
 > __Внимание!__: утилиты `cbp2ndk` и `android-elf-cleaner` используемые в `NDK C::B template` собраны для 32bit версии Windows.  
 > Если вы используете 64bit платформу и хотите иметь исполняемые файлы соответствующей разрядности, вам необходимо пересобрать проект самостоятельно.   
-> Утилиты `cbp2ndk` и `android-elf-cleaner` находятся по следующкму пути:
+> Утилиты `cbp2ndk` и `android-elf-cleaner` в `C::B` находятся по следующкму пути:
 
 ```
 <CodeBlocks base directory>\share\CodeBlocks\templates\wizard\ndk_android\exec\

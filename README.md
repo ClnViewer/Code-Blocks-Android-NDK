@@ -8,7 +8,11 @@
 
 
 # Code-Blocks-Android-NDK
-`Code::Blocks` + `Android NDK` project template [HOWTO](https://clnviewer.github.io/Code-Blocks-Android-NDK/)
+`Code::Blocks` + `Android NDK` project template [HOWTO](https://clnviewer.github.io/Code-Blocks-Android-NDK/)  
+`Code::Blocks Template` [auto installation](https://clnviewer.github.io/Code-Blocks-Android-NDK/CBNDKAUTOINSTALL.html)  
+`Code::Blocks Template utilities` [cbp2ndk](https://clnviewer.github.io/Code-Blocks-Android-NDK/CBP2NDK.html) | [zip](https://clnviewer.github.io/Code-Blocks-Android-NDK/cbp2ndk.zip)  
+`Code::Blocks Template utilities` [android-elf-cleaner](https://clnviewer.github.io/Code-Blocks-Android-NDK/) | [zip](https://clnviewer.github.io/Code-Blocks-Android-NDK/android-elf-cleaner.zip)  
+
 
 ### Support:
 

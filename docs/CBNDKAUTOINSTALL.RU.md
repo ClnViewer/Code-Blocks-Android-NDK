@@ -75,7 +75,6 @@
 		/>
 	</remote_debugging>
 </debugger>
-
 ```
 
 > __Внимание!__: утилиты `cbp2ndk` и `android-elf-cleaner` используемые в `NDK C::B template` собраны для 32bit версии Windows.  
@@ -84,6 +83,5 @@
 
 ```
 <CodeBlocks base directory>\share\CodeBlocks\templates\wizard\ndk_android\exec\
-
 ```
 

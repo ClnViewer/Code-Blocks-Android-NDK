@@ -1,85 +1,89 @@
-### cbp2ndk export utility
 
- The goal of the `cbp2ndk` utility is to transfer settings and settings made in` Code :: Blocks` to the format of `Android NDK`
+# утилита экспорта cbp2ndk
 
- ### Supported C :: B configuration blocks:
+Цель утилиты `cbp2ndk`- перенос настроек и установок сделанных в `Code::Blocks` в формат `Android NDK`
 
- - both global settings blocks and corresponding tags are supported
+### Поддерживаемые блоки конфигурации C::B:
 
- - compiler flags settings
-
- - setting options linker
-
- - list of link libraries
-
- - list of compiled project files
+- поддерживаются как глобальные блоки настроек, так и соответствующие тегу сборки  
+- настройки флагов компилятора  
+- настройки опций линкера  
+- список подключаемых библиотек  
+- список компилируемых файлов проекта  
 
 
- ### Data conversion for NDK configuration, Android.mk file:
+### Преобразование данных для конфигурации NDK, файл Android.mk:
 
- - automatic calculation of paths for `include` and their inclusion in the variable` LOCAL_C_INCLUDES`
-
- - automatic calculation of connected libraries and their inclusion in the variable `LOCAL_LDLIBS`
-
- - automatic calculation of extensions of compiled files and their inclusion in the variable `LOCAL_CPP_EXTENSION`
-
- - automatic distribution of flags between the variables `LOCAL_CFLAGS` and` LOCAL_CPPFLAGS` according to their language
-
- - listing the compiled project files and adding them to the variable `LOCAL_SRC_FILES`
-
- - export the command line for the autorun application from `Project -> Program launch parameters` in` Makefile` and the startup script
-
- - if the file `Android.mk` is not in the directory pointed to by the path to the` .cbp` project, it will be created automatically.  If you create `Android.mk`, the name for the application will be taken from the name of the project and all the specials.  characters and spaces will be replaced with the underscore `_`.
-
- - the files `Application.mk` and` Makefile` in the absence of the directory pointed to by the path to the project `.cbp`, will be created automatically.  In `Makefile` you need to edit the variable` NDKROOT` indicating the path to `Android NDK` on your system.
-
- - by default, the debug print library for Android, liblog is always included in the variable LOCAL_LDLIBS, and the project root directory is included in the variable LOCAL_C_INCLUDES.
+- автоматическое вычисление путей для `include` и включение их в переменную `LOCAL_C_INCLUDES`  
+- автоматическое вычисление подключаемых библиотек и включение их в переменную `LOCAL_LDLIBS`  
+- автоматическое вычисление расширений компилируемых файлов и включение их в переменную `LOCAL_CPP_EXTENSION`  
+- автоматическое распределение флагов между переменными `LOCAL_CFLAGS` и `LOCAL_CPPFLAGS` в соответствии с принадлежностью к языку  
+- составление списка компилируемых файлов проекта и добавление их в переменную `LOCAL_SRC_FILES`  
+- экспорт командной строки автозапуска приложения из `Проект -> Параметры запуска программы` в `Makefile` и скрипт запуска  
+- если файл `Android.mk` отсутствует в каталоге на который указывает путь до проекта `.cbp`, он будет создан автоматически. В случае создания `Android.mk` имя для приложения будет взято из названия проекта и все спец. символы и пробелы будут заменены на нижнее подчеркивание `_`.  
+- файлы `Application.mk` и `Makefile` в случае отсутствия в каталоге на который указывает путь до проекта `.cbp`, будут созданы автоматически. В `Makefile` необходимо отредактировать переменную `NDKROOT` указывающую на путь к `Android NDK` на вашей системе.  
+- по умолчанию, в переменную `LOCAL_LDLIBS` всегда включается библиотека отладочной печати для `Android`, `liblog`, а в переменную `LOCAL_C_INCLUDES` включаеться корневая директория проекта `./`  
 
 
-### Rewritable variables in the Android.mk file:
+### Перезаписываемые переменные в файле Android.mk:
 
- The following variables can be overwritten, do not fill them in manually.
+Указанные ниже переменные могут быть перезаписаны, не заполняйте их в ручную.  
 
- - `LOCAL_CPP_EXTENSION`
-
- - `LOCAL_SRC_FILES`
-
- - `LOCAL_CFLAGS`
-
- - `LOCAL_CPPFLAGS`
-
- - `LOCAL_LDFLAGS`
-
- - `LOCAL_LDLIBS`
-
- - `LOCAL_C_INCLUDES`
-
- - `LOCAL_MODULE` (in case of file creation)
+- `LOCAL_CPP_EXTENSION`  
+- `LOCAL_SRC_FILES`  
+- `LOCAL_CFLAGS`  
+- `LOCAL_CPPFLAGS`  
+- `LOCAL_LDFLAGS`  
+- `LOCAL_LDLIBS`  
+- `LOCAL_C_INCLUDES`  
+- `LOCAL_MODULE` (в случае создания файла)  
 
 
- Variables not included in this list will be saved with the values ​​and overwritten with the new configuration.
+Переменные не вошедшие в этот список будут сохранены вместе со значениями и перезаписаны вместе с новой конфигурацией.
+
+### Параметры командной строки:
 
 
-### Adding a menu to C :: B
+        Options:
+           -a, --auto      find .cbp project file from current directory
+           -c, --cbp       path to .cbp project file
+           -d, --dump      dump current configuration
+           -t, --tag       building tag: Debug|Release|OtherTag
+           -q, --quiet     quiet all messages
+           -v, --verbose   verbose output to console
+           -n  --nodefault no set default values (libs, include paths)
+               --cbtmpl    install C::B wizard template Makefile file
+               --api       android API number (Application.mk)
+               --abi       android ABI platform (Application.mk)
+               --ndkopt    android NDK options (Application.mk)
 
- ! [cbp2ndk menu in CodeBlocks] (img / Image15.png)
+        Using:
+           cbp2ndk.exe <BuildTag> <path\project.cbp>
+           cbp2ndk.exe -t <BuildTag> -c <path\project.cbp> -v
+           cbp2ndk.exe -a --api android-28 --abi armeabi-v7a --ndkopt debug
+           cbp2ndk.exe -a
 
- ### Sources:
+### Добавление меню в C::B
 
- Download [cbp2ndk v.0.0.14.79 / win32 (07/03/2019)] (https://clnviewer.github.io/Code-Blocks-Android-NDK/cbp2ndk.zip)
+![cbp2ndk menu in CodeBlocks](img/Image15.png)
 
- Go to the [cbp2ndk] directory (https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/cbp2ndk)
+### Источники:
 
- Learn more about the format and capabilities of the file [Android.mk] (https://developer.android.com/ndk/guides/android_mk)
+Скачать [cbp2ndk v.0.0.14.79/win32 (03.07.2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/cbp2ndk.zip)  
+Перейти в директорию [cbp2ndk](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/cbp2ndk)  
+Более подробно о формате и возможностях файла [Android.mk](https://developer.android.com/ndk/guides/android_mk)  
+
+### Рекомендации:
+
+> Всегда используйте косую черту в стиле Unix (/) в файлах сборки. Система сборки неправильно обрабатывает обратную косую черту в стиле Windows.  
 
 
-
-### Command line parameters:
  
+> Постарайтесь не изменять уровень оптимизации / отладки в вашем Android.mk файле. Это позволяет системе сборки генерировать полезные файлы данных, используемые во время отладки. Имеется в виду исключить употребление флагов `-g`, `-s`, `-O.` и их аналогов.  
+
+## License
  
-
-### Recommendations:
-
-> Always use a Unix-style slash (/) in assembly files.  The build system incorrectly handles the backslash in Windows style.
-> Try not to change the level of optimization / debugging in your Android.mk file.  This allows the build system to generate useful data files used during debugging.  It is meant to exclude the use of the flags `-g`,` -s`, `-O` and their analogues.
+  _MIT_
+ 
+  
  

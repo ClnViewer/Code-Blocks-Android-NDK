@@ -220,7 +220,8 @@
 
 ----------
 
-Полный код `NDK C::B template` находиться в директории [C::B шаблон](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/)
+Полный код `NDK C::B template` находиться в директории [C::B шаблон](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/)  
+Страница [инсталлятора](CBNDKAUTOINSTALL.md) `NDK C::B template`  
 
 - Скачать инсталлятор `NDK C::B template` [CodeBlocksNdkTemplate v.0.0.14.79/win32 (03.07.2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/CodeBlocksNdkTemplate.exe)  
 - Скачать утилиту конвертации настроек [cbp2ndk v.0.0.14.79/win32 (03.07.2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/cbp2ndk.zip)  

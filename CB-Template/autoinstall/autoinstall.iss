@@ -52,8 +52,16 @@ Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "arabic"; MessagesFile: "compiler:Languages\Arabic.isl"
 Name: "korea"; MessagesFile: "compiler:Languages\Korean.isl"
 
+[CustomMessages]
+CbOverwriteDescription = Overwrite C::B template configuration (v.17.12)
+ru.CbOverwriteDescription = Перезаписать конфигурацию шаблонов C::B (v.17.12)
+
+[Tasks]
+Name: "installcbconfig"; Description: {cm:CbOverwriteDescription}; Flags: unchecked
+
 [Files]
-Source: "..\CodeBlocks\*"; Check: GetCodeblocksTemplateDestination; DestDir: "{code:TemplateDestination}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "src\CodeBlocks\*"; Check: GetCodeblocksTemplateDestination; DestDir: "{code:TemplateDestination}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "src\CodeBlocks.config\*"; Check: GetCodeblocksTemplateDestination; DestDir: "{code:TemplateDestination}"; Tasks: installcbconfig; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Code]
 

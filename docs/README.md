@@ -16,7 +16,7 @@
 ----------
 
 - source code `NDK C::B template` [manual installation](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/)  
-- source code `NDK C::B template` [auto installation](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/src/CodeBlocks/templates/wizard/ndk_android)  
+- source code `NDK C::B template` [auto installation](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/autoinstall/src/CodeBlocks/templates/wizard/ndk_android)  
 - source code `NDK C::B template` [installers](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/autoinstall)  
 
 ### Discussion:

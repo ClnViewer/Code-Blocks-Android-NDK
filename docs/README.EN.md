@@ -219,9 +219,9 @@ The advantages of using NDK in contrast to the static assembly for a specific pl
 The full code `NDK C::B template` is located in the [C::B template](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/) directory  
 The [installer](CBNDKAUTOINSTALL.EN.md) page `NDK C::B template`  
 
-- Download the installer `NDK C::B template` [CodeBlocksNdkTemplate v.0.0.14.79 / win32 (07/03/2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/CodeBlocksNdkTemplate.exe)  
-- Download the settings conversion utility [cbp2ndk v.0.0.14.79 / win32 (07/03/2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/cbp2ndk.zip)  
-- Download the binary file cleaning utility `armeabi-v7a` [android-elf-cleaner v.0.0.14.79 / win32 (07/03/2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/android  -elf-cleaner.zip)  
+- Download the installer `NDK C::B template` [CodeBlocksNdkTemplate v.0.0.14.79/win32 (07/03/2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/CodeBlocksNdkTemplate.exe)  
+- Download the settings conversion utility [cbp2ndk v.0.0.14.79/win32 (07/03/2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/cbp2ndk.zip)  
+- Download the binary file cleaning utility `armeabi-v7a` [android-elf-cleaner v.0.0.14.79/win32 (07/03/2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/android  -elf-cleaner.zip)  
 
 
 Discussion on [ru.stackoverflow.com](https://ru.stackoverflow.com/questions/972826/codeblocks-android-ndk/972896#972896)  

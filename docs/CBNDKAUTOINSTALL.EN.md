@@ -50,7 +50,7 @@ Before using the template, after making these changes, you must restart `C::B`
 
 ### Features
 
-> __Bag? __: unfortunately I did not find a direct way to add debugger parameters directly to the `C::B` project using its API.  
+> __Bug? __: unfortunately I did not find a direct way to add debugger parameters directly to the `C::B` project using its API.  
 > Currently, the debugger parameters are entered into the `Extensions/debugger1` section, but for operation it is necessary that these parameters be in the `Extensions/debugger` section.  
 > After creating the project, use the editor to remove the `Extensions/debugger` section and rename the `Extensions/debugger1` section to `Extensions/debugger`.  
 > An example of the contents of this section is given below.  

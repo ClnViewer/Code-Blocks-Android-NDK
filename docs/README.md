@@ -9,7 +9,7 @@
 | `Code::Blocks` project template [__auto installation__](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/CB-Template/CodeBlocks/templates/wizard/ndk_android) | [EN](https://clnviewer.github.io/Code-Blocks-Android-NDK/CBNDKAUTOINSTALL.EN.html) | [RU](https://clnviewer.github.io/Code-Blocks-Android-NDK/CBNDKAUTOINSTALL.RU.html) | [exe](https://clnviewer.github.io/Code-Blocks-Android-NDK/CodeBlocksNdkTemplate.exe)  
 | `Code::Blocks` settings conversion [__cbp2ndk__](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/cbp2ndk) utility | [EN](https://clnviewer.github.io/Code-Blocks-Android-NDK/CBP2NDK.EN.html) | [RU](https://clnviewer.github.io/Code-Blocks-Android-NDK/CBP2NDK.RU.html) | [zip](https://clnviewer.github.io/Code-Blocks-Android-NDK/cbp2ndk.zip)  
 | `Code::Blocks` binary file cleaning [__android-elf-cleaner__](https://github.com/ClnViewer/Code-Blocks-Android-NDK/tree/master/android-elf-cleaner) utility | [zip](https://clnviewer.github.io/Code-Blocks-Android-NDK/android-elf-cleaner.zip)  
-| `ADB Android Viewer` developed to view and control your android device from a PC | [EN](https://clnviewer.github.io/Code-Blocks-Android-NDK/ADBANDROIDVIEWER.EN.md) | [RU](https://clnviewer.github.io/Code-Blocks-Android-NDK/ADBANDROIDVIEWER.RU.md) | [msi](https://clnviewer.github.io/ADB-Android-Viewer/dist/Android-ADB-Viewer.msi)  
+| `ADB Android Viewer` developed to view and control your android device from a PC | [EN](https://clnviewer.github.io/Code-Blocks-Android-NDK/ADBANDROIDVIEWER.EN.html) | [RU](https://clnviewer.github.io/Code-Blocks-Android-NDK/ADBANDROIDVIEWER.RU.html) | [msi](https://clnviewer.github.io/ADB-Android-Viewer/dist/Android-ADB-Viewer.msi)  
 
 ### Source links:
 

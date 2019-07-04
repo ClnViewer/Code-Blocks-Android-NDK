@@ -22,7 +22,7 @@
 - Build Release (NDK toolchain).  
 - Run from device.  
 - Debug from device.  
-- Auto start/stop `gdbserver`from device.  
+- Auto start/stop `gdbserver` from device.  
 - No wrappers from `Gradle/Java` code required, works directly with the device.  
 - Advanced project export to `Android.mk` file format, possible using utility [cbp2ndk](cbp2ndk/). 
 

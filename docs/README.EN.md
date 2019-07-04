@@ -20,8 +20,8 @@ There are two ways:
 
 ----------
 
-- __The first way __: download and install the ready installer `NDK C::B template`, [more ..](CBNDKAUTOINSTALL.EN.md)
-- __Path two __: in manual mode, set `NDK C::B template` for each project, as described below.
+- __The first way__: download and install the ready installer `NDK C::B template`, [more ..](CBNDKAUTOINSTALL.EN.md)
+- __Path two__: in manual mode, set `NDK C::B template` for each project, as described below.
 
 ----------
 
@@ -45,7 +45,7 @@ The `<Extensions><debugger><remote_debugging>` section contains settings for rem
 
 - `options ip_address="127.0.0.1" ip_port="59999 "extended_remote="0"`, if there is a need to change the port number, then this must also be done in `Makefile`.  If the `extended_remote` option is nonzero, the remotely running gdbserver window will not close automatically after debugging.  
 
-[** AndroidNdkTemplate.cbp **](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/AndroidNdkTemplate.cbp) - the project file `C::B`.  
+[**AndroidNdkTemplate.cbp**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/AndroidNdkTemplate.cbp) - the project file `C::B`.  
 
 > If during the launch of the assembled application on the device you experience the following errors:  
 
@@ -56,15 +56,15 @@ The `<Extensions><debugger><remote_debugging>` section contains settings for rem
 > Use [android-elf-cleaner](https://github.com/ClnViewer/Code-Blocks-Android-NDK/android-elf-cleaner)  
 > These errors are typical for the binary file of the platform `armeabi-v7a`, they were later corrected in the latest versions of libraries.  
 
-Download [android-elf-cleaner v.0.0.14.79 / win32 (07.03.2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/android-elf-cleaner.zip)  
+Download [android-elf-cleaner v.0.0.14.79/win32 (07.03.2019)](https://clnviewer.github.io/Code-Blocks-Android-NDK/android-elf-cleaner.zip)  
  
 ### Source assembly control files in the NDK project directory:
 
 ----------
 
-[** Application.mk **](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Application.mk) - set the build parameters.  
-[** Android.mk **](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Android.mk) - this is the make-up file unique for each `NDK` project (application).  
-[** Makefile **](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Makefile) - `C::B` starts directly:  
+[**Application.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Application.mk) - set the build parameters.  
+[**Android.mk**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Android.mk) - this is the make-up file unique for each `NDK` project (application).  
+[**Makefile**](https://github.com/ClnViewer/Code-Blocks-Android-NDK/blob/master/CB-Template/Makefile) - `C::B` starts directly:  
 
 The `Application.mk` and `Makefile` files are universal for all projects collected using `NDK` and do not require revisions.  
 To understand the structure of where the application lies in the project `NDK`, I will give a tree  

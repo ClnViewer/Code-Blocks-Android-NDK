@@ -56,7 +56,7 @@
 					<Add after="upx.exe -9 bin\Release\cbp2ndk.exe" />
 					<Add after="C:\__Bin\7Zip\7z a -mx9 -tzip ..\docs\cbp2ndk.zip bin\Release\cbp2ndk.exe" />
 					<Add after="cmd.exe /C copy dist\Test.cbp bin\Release\Test.cbp" />
-					<Add after="cmd.exe /C copy bin\Release\cbp2ndk.exe ..\CB-Template\CodeBlocks\templates\wizard\ndk_android\exec\cbp2ndk32.exe" />
+					<Add after="cmd.exe /C copy bin\Release\cbp2ndk.exe ..\CB-Template\autoinstall\src\CodeBlocks\templates\wizard\ndk_android\exec\cbp2ndk32.exe" />
 					<Add after="cmd.exe /C C:\__Bin\InnoSetup6\Compil32.exe /cc ..\CB-Template\autoinstall\autoinstall.iss" />
 					<Mode after="always" />
 				</ExtraCommands>

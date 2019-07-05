@@ -38,7 +38,7 @@
 				<ExtraCommands>
 					<Add after="upx.exe -9 ..\cbp2ndk\bin\Release\android-elf-cleaner.exe" />
 					<Add after="C:\__Bin\7Zip\7z a -mx9 -tzip ..\docs\android-elf-cleaner.zip ..\cbp2ndk\bin\Release\android-elf-cleaner.exe" />
-					<Add after="cmd.exe /C copy ..\cbp2ndk\bin\Release\android-elf-cleaner.exe ..\CB-Template\CodeBlocks\templates\wizard\ndk_android\exec\android-elf-cleaner32.exe" />
+					<Add after="cmd.exe /C copy ..\cbp2ndk\bin\Release\android-elf-cleaner.exe ..\CB-Template\autoinstall\src\CodeBlocks\templates\wizard\ndk_android\exec\android-elf-cleaner32.exe" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>

@@ -12,14 +12,17 @@
 
 `ADB Android Viewer` msi пакет, `Бендер Родригес edition :)` [msi](https://clnviewer.github.io/ADB-Android-Viewer/dist/Android-ADB-Viewer.msi)  
 
-### ADB Viewer запись LUA скрипта
+### ADB Viewer - запись LUA скрипта
 
 ![adbviewer](img/adbviewer-script-record.gif)
 
-### ADB Viewer запуск LUA скрипта
+### ADB Viewer - запуск LUA скрипта
 
 ![adbviewer](img/adbviewer-script-run.gif)
 
+### ADB Viewer - экран встроенного тераминала
+
+![adbviewer](img/adbviewer-2-terminal-en.png)
 
 ## License
 

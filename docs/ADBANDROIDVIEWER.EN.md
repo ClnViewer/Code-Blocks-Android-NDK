@@ -20,6 +20,9 @@
 
 ![adbviewer](img/adbviewer-script-run.gif)
 
+### ADB Viewer Terminal screen
+
+![adbviewer](img/adbviewer-2-terminal-en.png)
 
 ## License
 

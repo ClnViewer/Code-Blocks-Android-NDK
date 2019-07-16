@@ -22,6 +22,10 @@
 
 ### ADB Viewer Terminal screen
 
+![adbviewer](img/adbviewer-terminal.gif)
+
+> full screen mode
+
 ![adbviewer](img/adbviewer-2-terminal-en.png)
 
 ## License

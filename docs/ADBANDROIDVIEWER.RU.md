@@ -22,6 +22,10 @@
 
 ### ADB Viewer - экран встроенного тераминала
 
+![adbviewer](img/adbviewer-terminal.gif)
+
+> полноэкранный режим
+
 ![adbviewer](img/adbviewer-2-terminal-en.png)
 
 ## License

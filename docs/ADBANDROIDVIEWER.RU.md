@@ -11,6 +11,7 @@
 ### Download
 
 `ADB Android Viewer` msi пакет, `Бендер Родригес edition :)` [msi](https://clnviewer.github.io/ADB-Android-Viewer/dist/Android-ADB-Viewer.msi)  
+`ADB Android Viewer` сборка одним исполняемым файлом](https://clnviewer.github.io/ADB-Android-Viewer/dist/ADBViewer.exe) не требует инсталляции, всегда готов к работе, включает в себя ADB  
 
 ### ADB Viewer - запись LUA скрипта
 

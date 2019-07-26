@@ -63,9 +63,9 @@ int main(int argc, const char *argv[])
 
 	try
 	{
-		auto doc = tinyxml2::load_xmlfile(cnf.fname[0]);
+        auto doc = tinyxml2::load_xmlfile(cnf.fname[0]);
 
-		if (cnf.isverb)
+        if (cnf.isverb)
             std::cout << " * Open (xml):       " << cnf.fname[0].c_str() << std::endl;
 
         /// begin XML configuration parse

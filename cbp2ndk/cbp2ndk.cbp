@@ -1,101 +1,92 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
-	<FileVersion major="1" minor="6" />
-	<Project>
-		<Option title="cbp2ndk" />
-		<Option pch_mode="2" />
-		<Option compiler="gcc" />
-		<Build>
-			<Target title="Debug">
-				<Option output="bin/Debug/cbp2ndk" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Option parameters="-t Debug -c bin\Debug\Test.cbp " />
-				<Compiler>
-					<Add option="-std=c++17" />
-					<Add option="-m32" />
-					<Add option="-g" />
-					<Add option="-fvisibility=hidden" />
-					<Add option="-fvisibility-inlines-hidden" />
-					<Add option="-D_DEBUG=1" />
-				</Compiler>
-				<Linker>
-					<Add option="-static-libstdc++" />
-					<Add option="-static-libgcc" />
-					<Add option="-static" />
-					<Add option="-m32" />
-					<Add option="-Wl,-rpath=./" />
-				</Linker>
-				<ExtraCommands>
-					<Add after="cmd.exe /C copy dist\Test.cbp bin\Debug\Test.cbp" />
-				</ExtraCommands>
-			</Target>
-			<Target title="Release">
-				<Option output="bin/Release/cbp2ndk" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Option parameters="-t Release -c bin\Release\Test.cbp " />
-				<Compiler>
-					<Add option="-O2" />
-					<Add option="-std=c++17" />
-					<Add option="-m32" />
-					<Add option="-fvisibility=hidden" />
-					<Add option="-fvisibility-inlines-hidden" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-					<Add option="-static-libstdc++" />
-					<Add option="-static-libgcc" />
-					<Add option="-static" />
-					<Add option="-m32" />
-					<Add option="-Wl,-rpath=./" />
-				</Linker>
-				<ExtraCommands>
-					<Add after="upx.exe -9 bin\Release\cbp2ndk.exe" />
-					<Add after="C:\__Bin\7Zip\7z a -mx9 -tzip ..\docs\cbp2ndk.zip bin\Release\cbp2ndk.exe" />
-					<Add after="cmd.exe /C copy dist\Test.cbp bin\Release\Test.cbp" />
-					<Add after="cmd.exe /C copy bin\Release\cbp2ndk.exe ..\CB-Template\autoinstall\src\CodeBlocks\templates\wizard\ndk_android\exec\cbp2ndk32.exe" />
-					<Add after="cmd.exe /C C:\__Bin\InnoSetup6\Compil32.exe /cc ..\CB-Template\autoinstall\autoinstall.iss" />
-					<Mode after="always" />
-				</ExtraCommands>
-			</Target>
-		</Build>
-		<Compiler>
-			<Add option="-std=c++17" />
-			<Add option="-m32" />
-			<Add option="-Wall" />
-			<Add option="-Wextra" />
-			<Add option="-pedantic" />
-		</Compiler>
-		<Unit filename="src/cbp2ndk-CbConf.cpp" />
-		<Unit filename="src/cbp2ndk-CbConf.h" />
-		<Unit filename="src/cbp2ndk-dump.cpp" />
-		<Unit filename="src/cbp2ndk-parse.cpp" />
-		<Unit filename="src/cbp2ndk-write.cpp" />
-		<Unit filename="src/cbp2ndk.cpp" />
-		<Unit filename="src/cbp2ndk.h" />
-		<Unit filename="src/cbp2ndk.rc">
-			<Option compilerVar="WINDRES" />
-		</Unit>
-		<Unit filename="src/extern/argh.h" />
-		<Unit filename="src/extern/tinyxml2.cpp" />
-		<Unit filename="src/extern/tinyxml2.h" />
-		<Unit filename="src/extern/tixml2cx.h" />
-		<Unit filename="src/extern/tixml2ex.h" />
-		<Unit filename="version.h" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-			<lib_finder disable_auto="1" />
-			<AutoVersioning>
-				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
-				<Settings autoincrement="1" date_declarations="1" use_define="1" update_manifest="1" do_auto_increment="1" ask_to_increment="0" language="C" svn="0" svn_directory="" header_path="version.h" />
-				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
-				<Code header_guard="VERSION_LOCAL_H" namespace="AutoVersion" prefix="CBP" />
-			</AutoVersioning>
-		</Extensions>
-	</Project>
+    <FileVersion major="1" minor="6" />
+    <Project>
+        <Option title="cbp2ndk" />
+        <Option pch_mode="2" />
+        <Option compiler="gcc" />
+        <Build>
+            <Target title="Debug">
+                <Option output="bin/Debug/cbp2ndk" prefix_auto="1" extension_auto="1" />
+                <Option object_output="obj/Debug/" />
+                <Option type="1" />
+                <Option compiler="gcc" />
+                <Option parameters="-t Debug -c bin\Debug\Test.cbp " />
+                <Compiler>
+                    <Add option="-g3" />
+                    <Add option="-D_DEBUG=1" />
+                </Compiler>
+                <ExtraCommands>
+                    <Add after="cmd.exe /C copy dist\Test.cbp bin\Debug\Test.cbp" />
+                </ExtraCommands>
+            </Target>
+            <Target title="Release">
+                <Option output="bin/Release/cbp2ndk" prefix_auto="1" extension_auto="1" />
+                <Option object_output="obj/Release/" />
+                <Option type="1" />
+                <Option compiler="gcc" />
+                <Option parameters="-t Release -c bin\Release\Test.cbp " />
+                <Compiler>
+                    <Add option="-O2" />
+                    <Add option="-flto" />
+                    <Add option="-static" />
+                    <Add option="-static-libgcc" />
+                    <Add option="-static-libstdc++" />
+                </Compiler>
+                <Linker>
+                    <Add option="-s" />
+                </Linker>
+                <ExtraCommands>
+                    <Add after="upx.exe -9 bin\Release\cbp2ndk.exe" />
+                    <Add after="C:\__Bin\7Zip\7z a -mx9 -tzip ..\docs\cbp2ndk.zip bin\Release\cbp2ndk.exe" />
+                    <Add after="cmd.exe /C copy dist\Test.cbp bin\Release\Test.cbp" />
+                    <Add after="cmd.exe /C copy bin\Release\cbp2ndk.exe ..\CB-Template\autoinstall\src\CodeBlocks\templates\wizard\ndk_android\exec\cbp2ndk32.exe" />
+                    <Add after="cmd.exe /C C:\__Bin\InnoSetup6\Compil32.exe /cc ..\CB-Template\autoinstall\autoinstall.iss" />
+                    <Mode after="always" />
+                </ExtraCommands>
+            </Target>
+        </Build>
+        <Compiler>
+            <Add option="-std=c++17" />
+            <Add option="-m32" />
+            <Add option="-Wall" />
+            <Add option="-Wextra" />
+            <Add option="-pedantic" />
+            <Add option="-fexceptions" />
+            <Add option="-Wno-unknown-pragmas" />
+            <Add option="-fvisibility=hidden" />
+            <Add option="-fvisibility-inlines-hidden" />
+        </Compiler>
+        <Linker>
+            <Add option="-Wl,-rpath=./" />
+        </Linker>
+        <Unit filename="src/cbp2ndk-CbConf.cpp" />
+        <Unit filename="src/cbp2ndk-CbConf.h" />
+        <Unit filename="src/cbp2ndk-dump.cpp" />
+        <Unit filename="src/cbp2ndk-parse.cpp" />
+        <Unit filename="src/cbp2ndk-write.cpp" />
+        <Unit filename="src/cbp2ndk.cpp" />
+        <Unit filename="src/cbp2ndk.h" />
+        <Unit filename="src/cbp2ndk.rc">
+            <Option compilerVar="WINDRES" />
+        </Unit>
+        <Unit filename="src/extern/argh.h" />
+        <Unit filename="src/extern/tinyxml2.cpp" />
+        <Unit filename="src/extern/tinyxml2.h" />
+        <Unit filename="src/extern/tixml2cx.h" />
+        <Unit filename="src/extern/tixml2ex.h" />
+        <Unit filename="version.h" />
+        <Extensions>
+            <code_completion />
+            <envvars />
+            <debugger />
+            <lib_finder disable_auto="1" />
+            <AutoVersioning>
+                <Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+                <Settings autoincrement="1" date_declarations="1" use_define="1" update_manifest="1" do_auto_increment="1" ask_to_increment="0" language="C" svn="0" svn_directory="" header_path="version.h" />
+                <Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+                <Code header_guard="VERSION_LOCAL_H" namespace="AutoVersion" prefix="CBP" />
+            </AutoVersioning>
+        </Extensions>
+    </Project>
 </CodeBlocks_project_file>
